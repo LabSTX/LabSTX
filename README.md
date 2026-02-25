@@ -193,9 +193,9 @@ This landing site is the **public entry point** to the full LabSTX platform. The
 | **Purpose** | Marketing landing page | Full-featured browser IDE |
 | **Tech** | React 19, Vite 6, Tailwind CDN | React 18, Vite 6, Monaco Editor, Stacks SDK |
 | **Deployed At** | `lab-stx.vercel.app` | `lab-stx-ide.vercel.app` |
-| **AI** | — | Gemini AI, OpenRouter, ChainGPT |
+| **AI** | — | OpenRouter |
 | **Blockchain** | — | Stacks, Casper Network |
-| **Wallets** | — | Leather, Xverse, CSPRclick |
+| **Wallets** | — | Leather, Xverse |
 | **Build Output** | Static HTML/JS/CSS | Static HTML/JS/CSS + WASM |
 
 The landing page's **"Launch App"** and **"Start Building"** buttons navigate the user directly to the deployed IDE instance.
@@ -237,16 +237,16 @@ The landing page markets these core features of the IDE (see [`../IDE`](../IDE) 
 
 - **Monaco Editor** — VS Code-grade editing experience with full Clarity syntax highlighting
 - **Clarity Static Analysis** — In-browser `check` command for post-condition and cost analysis
-- **AI Assistant (LabSTX AI)** — Powered by Gemini, OpenRouter, and ChainGPT
-- **Wallet Integration** — Leather, Xverse (Stacks) and CSPRclick (Casper Network)
+- **AI Assistant (LabSTX AI)** — Powered by OpenRouter
+- **Wallet Integration** — Leather, Xverse (Stacks)
 - **Deployment** — One-click deploy to Stacks Mainnet or Testnet
 - **GitHub Integration** — OAuth-based GitHub auth, file sync, and repo management
 - **File System** — Virtual multi-file workspace with drag-and-drop and ZIP export
 - **Debugger** — Step-through Clarity contract execution
 - **Terminal Panel** — Output, errors, and diagnostics with copy/locate features
-- **Source Control** — Git status, staging, commits, and branch management panel
+- **Source Control** (soon) — Git status, staging, commits, and branch management panel
 - **ABI Preview** — Parsed contract interface viewer (functions, maps, traits)
-- **Template Library** — Starter contracts for SIP-010, SIP-009, Counters, etc.
+- **Template Library** (soon)— Starter contracts for SIP-010, SIP-009, Counters, etc.
 
 ---
 
