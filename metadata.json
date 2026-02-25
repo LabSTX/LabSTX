@@ -1,0 +1,5 @@
+{
+  "name": "Caspier",
+  "description": "A browser-based IDE for developing, compiling, and deploying Casper smart contracts. No local setup required.",
+  "requestFramePermissions": []
+}

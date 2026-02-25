@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="LabSTX IDE - A Browser-Based Smart Contract Playground for the Stacks Blockchain. Write, compile, deploy, and test Stacks smart contracts directly in your browser. No local setup required." />
+  <meta name="keywords"
+    content="Stacks, STX, Clarity, Bitcoin L2, Blockchain, Smart Contracts, IDE, Web IDE, Deploy, Compile" />
+  <meta name="theme-color" content="#2d5bff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="LabSTX IDE - Browser-Based Smart Contract Playground" />
+  <meta property="og:description"
+    content="Write, compile, deploy, and test Stacks smart contracts directly in your browser. No local setup required." />
+  <meta property="og:image" content="/lab_stx_whitee.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LabSTX IDE - Browser-Based Smart Contract Playground" />
+  <meta name="twitter:description"
+    content="Write, compile, deploy, and test Stacks smart contracts directly in your browser. No local setup required." />
+  <meta name="twitter:image" content="/lab_stx_whitee.png" />
+
+  <title>LabSTX IDE - Browser-Based Smart Contract Playground</title>
+  <link rel="icon" type="image/svg+xml" href="/lab_stx.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <script>
+    // Keeping Tailwind Config exactly as requested
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            casper: {
+              red: '#2d5bff',
+              white: '#ffffff',
+              black: '#1a1a1a',
+              border: '#2d5bff',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Geist', 'Neue Montreal', 'Space Grotesk', 'Inter', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+          },
+          boxShadow: {
+            'neo': '4px 4px 0px 0px #2d5bff',
+            'neo-hover': '6px 6px 0px 0px #2d5bff',
+            'neo-sm': '2px 2px 0px 0px #2d5bff',
+            'neo-black': '4px 4px 0px 0px #1a1a1a',
+            'neo-black-hover': '6px 6px 0px 0px #1a1a1a',
+            'neo-black-sm': '2px 2px 0px 0px #1a1a1a',
+          },
+          keyframes: {
+            flow: {
+              '0%': { 'stroke-dashoffset': '20' },
+              '100%': { 'stroke-dashoffset': '0' }
+            }
+          },
+          animation: {
+            'flow': 'flow 1s linear infinite'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #f3f4f6;
+      color: #1a1a1a;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .connection-path {
+      transition: stroke-width 0.2s, filter 0.2s;
+    }
+
+    .connection-group:hover .connection-path-outline {
+      stroke: #2d5bff;
+      stroke-opacity: 0.1;
+      stroke-width: 12px;
+    }
+
+    .connection-group:hover .connection-path-main {
+      filter: drop-shadow(0px 0px 2px #2d5bff);
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
