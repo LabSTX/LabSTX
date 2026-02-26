@@ -6,7 +6,8 @@ import {
    Zap, CheckCircle, Terminal, Cpu, Globe, Shield, Code2,
    Copy, Check, Play, Database, Server, Bot, FolderTree, Rocket,
    Github, Twitter, ExternalLink, FileText, BookOpen, Calendar, MapPin,
-   Sun, Moon
+   Sun, Moon,
+   X
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -352,8 +353,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                />
                <span className="font-black text-xl">LabSTX</span>
             </div>
-            <div className="flex items-center gap-4">
-               <a href="#" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>DOCS</a>
+            <div className="flex items-center gap-6">
+               <a href="https://github.com/LabSTX/LabSTX_IDE" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Github /></a>
+               <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Twitter /></a>
+
                <button onClick={toggleTheme} className="p-2 rounded-lg transition-colors">{isDark ? <Sun size={20} /> : <Moon size={20} />}</button>
                <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')}>Launch App</NeoButton>
             </div>
