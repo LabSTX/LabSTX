@@ -7,7 +7,7 @@ import {
    Copy, Check, Play, Database, Server, Bot, FolderTree, Rocket,
    Github, Twitter, ExternalLink, FileText, BookOpen, Calendar, MapPin,
    Sun, Moon,
-   X
+   X, CheckCircle2, Circle, DollarSign, Target, ListChecks, History
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -331,6 +331,193 @@ const AsciiBackground: React.FC = () => {
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggleTheme }) => {
    const isDark = theme === 'dark';
+   const [currentView, setCurrentView] = useState<'landing' | 'roadmap'>('landing');
+
+   const RoadmapView = () => (
+      <div className="max-w-4xl mx-auto py-24 px-6 animate-fade-in">
+         <div className="mb-20 text-center">
+            <h2 className="text-6xl md:text-8xl font-display font-black uppercase mb-6 tracking-tighter">Roadmap</h2>
+            <p className="text-xl font-mono opacity-60">Building the most powerful Clarity environment on the web.</p>
+         </div>
+
+         {/* Stepper Logic */}
+         <div className="space-y-12 relative before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-[2px] before:bg-[#2d5bff] before:opacity-20">
+            {/* Phase 1 */}
+            <div className="relative pl-16 group">
+               <div className="absolute left-0 top-0 w-10 h-10 bg-black border-2 border-[#2d5bff] rounded-full flex items-center justify-center z-10 group-hover:scale-110 transition-transform">
+                  <CheckCircle2 className="text-[#2d5bff]" size={20} />
+               </div>
+               <div className={`p-8 border-2 shadow-neo transition-all ${isDark ? 'bg-[#111111] border-gray-800' : 'bg-white border-black'}`}>
+                  <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
+                     <div>
+                        <span className="text-xs font-mono font-bold text-[#2d5bff] uppercase tracking-widest bg-[#2d5bff]/10 px-2 py-1">Phase 1 (Week 3)</span>
+                        <h3 className="text-3xl font-display font-black uppercase mt-2">Core Stabilization</h3>
+                     </div>
+                     <div className="text-right">
+                        <div className="text-sm font-mono opacity-60">Budget Allocation</div>
+                        <div className="text-xl font-black text-[#2d5bff]">25% — $2,250</div>
+                     </div>
+                  </div>
+                  <p className="font-mono text-sm opacity-80 mb-6 italic underline decoration-[#2d5bff]/30">Objective: Improve reliability and stability of the core IDE workflow.</p>
+                  <div className="grid md:grid-cols-2 gap-8">
+                     <div>
+                        <h4 className="font-bold flex items-center gap-2 mb-4 text-[#2d5bff]"><ListChecks size={18} /> Deliverables</h4>
+                        <ul className="text-sm font-mono space-y-2 opacity-70">
+                           <li>• Refined Clarity compilation pipeline</li>
+                           <li>• Improved deployment flow</li>
+                           <li>• Structured error handling</li>
+                           <li>• Better transaction feedback UI</li>
+                           <li>• Internal refactoring</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <h4 className="font-bold flex items-center gap-2 mb-4 text-[#2d5bff]"><Target size={18} /> Acceptance Criteria</h4>
+                        <ul className="text-sm font-mono space-y-2 opacity-70">
+                           <li>• Consistent compilation</li>
+                           <li>• Successful deployments</li>
+                           <li>• Readable error output</li>
+                           <li>• Clear transaction status</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            {/* Phase 2 */}
+            <div className="relative pl-16 group">
+               <div className="absolute left-0 top-0 w-10 h-10 bg-black border-2 border-gray-600 rounded-full flex items-center justify-center z-10 group-hover:border-[#2d5bff] transition-all">
+                  <div className="w-2 h-2 bg-gray-600 rounded-full group-hover:bg-[#2d5bff]" />
+               </div>
+               <div className={`p-8 border-2 shadow-neo-black opacity-90 transition-all ${isDark ? 'bg-[#111111] border-gray-800' : 'bg-white border-black'}`}>
+                  <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
+                     <div>
+                        <span className="text-xs font-mono font-bold opacity-60 uppercase tracking-widest bg-gray-500/10 px-2 py-1">Phase 2 (Week 6)</span>
+                        <h3 className="text-3xl font-display font-black uppercase mt-2">ABI & Debugging</h3>
+                     </div>
+                     <div className="text-right">
+                        <div className="text-sm font-mono opacity-60">Budget Allocation</div>
+                        <div className="text-xl font-black">35% — $3,150</div>
+                     </div>
+                  </div>
+                  <p className="font-mono text-sm opacity-80 mb-6 italic underline decoration-gray-500/30">Objective: Enable seamless smart contract interaction and improve debugging visibility.</p>
+                  <div className="grid md:grid-cols-2 gap-8">
+                     <div>
+                        <h4 className="font-bold flex items-center gap-2 mb-4"><ListChecks size={18} /> Deliverables</h4>
+                        <ul className="text-sm font-mono space-y-2 opacity-70">
+                           <li>• Full ABI inspector panel</li>
+                           <li>• Read/write interaction UI</li>
+                           <li>• Transaction execution logs</li>
+                           <li>• Enhanced debugging output</li>
+                           <li>• Improved state visibility</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <h4 className="font-bold flex items-center gap-2 mb-4"><Target size={18} /> Acceptance Criteria</h4>
+                        <ul className="text-sm font-mono space-y-2 opacity-70">
+                           <li>• Direct function calls in IDE</li>
+                           <li>• Submit write transactions</li>
+                           <li>• Results clearly displayed</li>
+                           <li>• Debug logs operational</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            {/* Phase 3 */}
+            <div className="relative pl-16 group">
+               <div className="absolute left-0 top-0 w-10 h-10 bg-black border-2 border-gray-600 rounded-full flex items-center justify-center z-10 group-hover:border-[#2d5bff] transition-all">
+                  <div className="w-2 h-2 bg-gray-600 rounded-full group-hover:bg-[#2d5bff]" />
+               </div>
+               <div className={`p-8 border-2 shadow-neo-black opacity-90 transition-all ${isDark ? 'bg-[#111111] border-gray-800' : 'bg-white border-black'}`}>
+                  <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
+                     <div>
+                        <span className="text-xs font-mono font-bold opacity-60 uppercase tracking-widest bg-gray-500/10 px-2 py-1">Phase 3 (Week 9-10)</span>
+                        <h3 className="text-3xl font-display font-black uppercase mt-2">Education & Docs</h3>
+                     </div>
+                     <div className="text-right">
+                        <div className="text-sm font-mono opacity-60">Budget Allocation</div>
+                        <div className="text-xl font-black">40% — $3,600</div>
+                     </div>
+                  </div>
+                  <p className="font-mono text-sm opacity-80 mb-6 italic underline decoration-gray-500/30">Objective: Provide comprehensive developer documentation and onboarding materials.</p>
+                  <div className="grid md:grid-cols-2 gap-8">
+                     <div>
+                        <h4 className="font-bold flex items-center gap-2 mb-4"><ListChecks size={18} /> Deliverables</h4>
+                        <ul className="text-sm font-mono space-y-2 opacity-70">
+                           <li>• Documentation site</li>
+                           <li>• Step-by-step tutorials</li>
+                           <li>• Onboarding guide</li>
+                           <li>• Public roadmap page</li>
+                        </ul>
+                     </div>
+                     <div>
+                        <h4 className="font-bold flex items-center gap-2 mb-4"><Target size={18} /> Acceptance Criteria</h4>
+                        <ul className="text-sm font-mono space-y-2 opacity-70">
+                           <li>• Site publicly accessible</li>
+                           <li>• Full workflow tutorials</li>
+                           <li>• Clear roadmap direction</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         {/* Budget Breakdown Table */}
+         <div className="mt-32">
+            <h3 className="text-4xl font-display font-black uppercase mb-12 flex items-center gap-4"><DollarSign className="text-[#2d5bff]" /> Budget Summary</h3>
+            <div className={`border-2 shadow-neo-black overflow-hidden ${isDark ? 'border-gray-800' : 'border-black'}`}>
+               <table className="w-full font-mono text-sm">
+                  <thead>
+                     <tr className={`border-b-2 ${isDark ? 'bg-[#1a1a1a] border-gray-800' : 'bg-gray-100 border-black'}`}>
+                        <th className="p-4 text-left uppercase">Phase</th>
+                        <th className="p-4 text-left uppercase">Focus Area</th>
+                        <th className="p-4 text-left uppercase text-[#2d5bff]">Amount (USD)</th>
+                     </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-800">
+                     <tr>
+                        <td className="p-4">Phase 1</td>
+                        <td className="p-4">Core Stabilization</td>
+                        <td className="p-4 font-bold">$2,250</td>
+                     </tr>
+                     <tr>
+                        <td className="p-4">Phase 2</td>
+                        <td className="p-4">ABI & Debugging</td>
+                        <td className="p-4 font-bold">$3,150</td>
+                     </tr>
+                     <tr>
+                        <td className="p-4">Phase 3</td>
+                        <td className="p-4">Documentation & Education</td>
+                        <td className="p-4 font-bold">$3,600</td>
+                     </tr>
+                     <tr className={`font-black ${isDark ? 'bg-[#2d5bff]/10' : 'bg-gray-50'}`}>
+                        <td colSpan={2} className="p-4 text-right uppercase">Total Requested</td>
+                        <td className="p-4 text-xl text-[#2d5bff]">$9,000</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+         {/* Implemented Features */}
+         <div className="mt-32 p-12 border-2 border-dashed border-[#2d5bff] bg-[#2d5bff]/5 text-center">
+            <h3 className="text-4xl font-display font-black uppercase mb-8 flex items-center justify-center gap-4"><History className="text-[#2d5bff]" /> Currently Implemented</h3>
+            <div className="flex flex-wrap justify-center gap-4">
+               {['Browser IDE', 'Clarity Editor', 'Syntax Highlighting', 'Compilation', 'Deployment', 'Interaction Panel', 'Live Version'].map(feature => (
+                  <span key={feature} className={`px-4 py-2 border-2 font-mono text-xs font-bold uppercase transition-all hover:bg-[#2d5bff] hover:text-white ${isDark ? 'border-gray-700' : 'border-black'}`}>
+                     {feature}
+                  </span>
+               ))}
+            </div>
+         </div>
+
+         <div className="mt-20 text-center">
+            <NeoButton variant="primary" onClick={() => setCurrentView('landing')}>Back to Home</NeoButton>
+         </div>
+      </div>
+   );
 
    return (
       <div className={`min-h-screen font-sans selection:bg-[#2d5bff] selection:text-white flex flex-col transition-colors duration-300 ${isDark ? 'bg-black text-white' : 'bg-[#f3f4f6] text-[#1a1a1a]'
@@ -342,192 +529,243 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
           .shadow-neo-black { box-shadow: 8px 8px 0px 0px rgba(0,0,0,1); }
         `}</style>
 
-         {/* --- HEADER --- */}
          <header className={`h-20 shadow bg-backdrop-blur flex items-center justify-between px-6 sticky top-0 z-50 transition-colors duration-300 ${isDark ? 'bg-black' : 'bg-white'
             }`}>
-            <div className="flex items-center gap-2 font-mono leading-relaxed font-black">
+            <div
+               className="flex items-center gap-2 font-mono leading-relaxed font-black cursor-pointer group"
+               onClick={() => setCurrentView('landing')}
+            >
                <img
                   src={isDark ? `/lab_stx.png` : `/lab_stx_whitee.png`}
                   alt="LabSTX"
-                  className={isDark ? `w-5` : `w-5`}
+                  className={isDark ? `w-5 group-hover:rotate-12 transition-transform` : `w-7 group-hover:rotate-12 transition-transform`}
                />
-               <span className="font-black text-xl">LabSTX</span>
+               <span className="font-black text-xl tracking-tighter">LabSTX</span>
             </div>
             <div className="flex items-center gap-6">
-               <a href="https://github.com/LabSTX/LabSTX_IDE" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Github /></a>
+               <button
+                  onClick={() => setCurrentView('roadmap')}
+                  className={`font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'roadmap' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+               >
+                  Roadmap
+               </button>
+               <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Github /></a>
                <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Twitter /></a>
 
                <button onClick={toggleTheme} className="p-2 rounded-lg transition-colors">{isDark ? <Sun size={20} /> : <Moon size={20} />}</button>
-               <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')}>Launch App</NeoButton>
+               <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')}>Get Started</NeoButton>
             </div>
          </header>
 
          <main className="flex-1">
-            {/* --- HERO SECTION (HIRO STYLE) --- */}
-            <section className={`relative min-h-[85vh] flex flex-col items-center justify-center px-6 border-b-2 border-[#2d5bff] overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
-               <AsciiBackground />
-               <div className="max-w-7xl mx-auto text-center relative z-10">
-                  <h1 className={`text-6xl md:text-[140px] font-display font-black uppercase leading-[0.8] tracking-tighter mb-8 ${isDark ? 'text-white' : 'text-[#1a1a1a]'}`}>
+            {currentView === 'roadmap' ? (
+               <RoadmapView />
+            ) : (
+               <>
+                  {/* --- HERO SECTION (HIRO STYLE) --- */}
+                  <section className={`relative min-h-[85vh] flex flex-col items-center justify-center px-6 border-b-2 border-[#2d5bff] overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
+                     <AsciiBackground />
+                     <div className="max-w-7xl mx-auto text-center relative z-10">
+                        <h1 className={`text-6xl md:text-[140px] font-display font-black uppercase leading-[0.8] tracking-tighter mb-8 ${isDark ? 'text-white' : 'text-[#1a1a1a]'}`}>
 
-                     Write Clarity <br /> in Your Browser
-                  </h1>
-                  <div className="max-w-2xl mx-auto space-y-8">
-                     <p className={`text-xl font-medium font-mono ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>Write, compile, deploy, and test Clarity smart contracts. No local setup required.</p>
-                     <div className="flex justify-center">
-                        <button onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
-                           Start building <ArrowRight size={18} />
-                        </button>
+                           Write Clarity <br /> in Your Browser
+                        </h1>
+                        <div className="max-w-2xl mx-auto space-y-8">
+                           <p className={`text-xl font-medium font-mono ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>Write, compile, deploy, and test <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarity</a> smart contracts on <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Stacks</a>. No local setup required.</p>
+                           <div className="flex justify-center">
+                              <button onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
+                                 Start building <ArrowRight size={18} />
+                              </button>
+                           </div>
+                        </div>
                      </div>
-                  </div>
-               </div>
-            </section>
+                  </section>
 
-            {/* --- TRUSTED BY MARQUEE --- */}
-            <section className={`border-b-2 border-[#2d5bff] py-6 overflow-hidden ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#0a0a0a]'}`}>
-               <div className="whitespace-nowrap flex gap-12 animate-[marquee_25s_linear_infinite] hover:pause">
-                  {[...Array(2)].map((_, i) => (
-                     <React.Fragment key={i}>
-                        <span className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500"><Globe size={20} /> Stacks_Network</span>
-                        <span className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500"><Shield size={20} /> Enterprise_Grade</span>
-                        <span className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500"><Zap size={20} /> Bitcoin_Layers</span>
-                        <span className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500"><Code2 size={20} /> Clarity_SDK</span>
-                     </React.Fragment>
-                  ))}
-               </div>
-            </section>
-
-            <SimulationScroll theme={isDark ? `dark` : `light`} />
-
-            {/* --- FEATURES SECTION --- */}
-            {/* --- POWERFUL FEATURES --- */}
-            <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-black' : 'bg-white'}`}>
-               <div className="max-w-7xl mx-auto">
-                  <div className="mb-16">
-                     <h2 className={`text-5xl font-display font-black uppercase mb-4 ${isDark ? 'text-white' : 'text-black'}`}>Powerful Features</h2>
-                     <p className={`text-lg font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Advanced tooling for the Stacks Blockchain ecosystem</p>
-                  </div>
-                  <div className="grid md:grid-cols-3 gap-8">
-                     <FeatureCard icon={<Code2 size={32} />} title="Clarity Editor" desc="High-performance Monaco editor with real-time syntax highlighting for Clarity smart contracts." theme={theme} />
-                     <FeatureCard icon={<Cpu size={32} />} title="Static Analysis" desc="Integrated check command to catch post-condition errors and estimate execution costs before deployment." theme={theme} />
-                     <FeatureCard icon={<Bot size={32} />} title="AI Debugger" desc="LabSTX AI (powered by Gemini) helps optimize your Clarity logic and explain contract traits." theme={theme} />
-                     <FeatureCard icon={<Wallet size={32} />} title="Stacks Wallets" desc="Full integration with Leather and Xverse. Manage STX balances and SIP-010 tokens natively." theme={theme} />
-                     <FeatureCard icon={<FolderTree size={32} />} title="Project Scaffolding" desc="Manage multiple contract files and complex Stacks projects with a virtual file system." theme={theme} />
-                     <FeatureCard icon={<Rocket size={32} />} title="Seamless Deploy" desc="One-click deployment to Stacks Mainnet or Testnet with real-time explorer tracking." theme={theme} />
-                  </div>
-               </div>
-            </section>
-
-            {/* --- SUPPORTED LANGUAGES --- */}
-            <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#f3f4f6]'}`}>
-               <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-                  <div className="space-y-8">
-                     <div className="space-y-4">
-                        <h2 className={`text-5xl md:text-6xl font-display font-black uppercase leading-[0.9] ${isDark ? 'text-white' : 'text-black'}`}>
-                           Built for <span className="text-[#2d5bff]">Clarity</span>
-                        </h2>
-                        <p className="text-xl font-mono opacity-80 max-w-xl">
-                           The decidable language that brings predictable, secure smart contracts to the Bitcoin ecosystem via Stacks.
-                        </p>
+                  {/* --- TRUSTED BY MARQUEE --- */}
+                  <section className={`border-b-2 border-[#2d5bff] py-6 overflow-hidden ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#0a0a0a]'}`}>
+                     <div className="whitespace-nowrap flex gap-12 animate-[marquee_25s_linear_infinite] hover:pause">
+                        {[...Array(2)].map((_, i) => (
+                           <React.Fragment key={i}>
+                              <a href="https://www.stacks.co/" target="_blank" rel="noopener noreferrer" className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500 hover:text-[#2d5bff] transition-colors"><Globe size={20} /> Stacks_Network</a>
+                              <span className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500"><Shield size={20} /> Enterprise_Grade</span>
+                              <a href="https://www.stacks.co/bitcoin-layers" target="_blank" rel="noopener noreferrer" className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500 hover:text-[#2d5bff] transition-colors"><Zap size={20} /> Bitcoin_Layers</a>
+                              <a href="https://docs.stacks.co/docs/clarity" target="_blank" rel="noopener noreferrer" className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500 hover:text-[#2d5bff] transition-colors"><Code2 size={20} /> Clarity_SDK</a>
+                           </React.Fragment>
+                        ))}
                      </div>
+                  </section>
 
-                     <div className="grid gap-4">
-                        <div className={`flex items-center gap-4 p-4 border-2 shadow-neo ${isDark ? 'bg-black border-gray-700' : 'bg-white border-black'}`}>
-                           <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIACgAKAMBEQACEQEDEQH/xAAYAAEAAwEAAAAAAAAAAAAAAAAAAwQGBf/EACsQAAAFAQYEBwEAAAAAAAAAAAABAgMRBAUSExUhcTEyQWEiNUJRgqHSFP/EABoBAQADAAMAAAAAAAAAAAAAAAACAwUEBgf/xAAqEQACAQIEBAUFAAAAAAAAAAAAAQIDEQQSE0ExUYLBISNh0fAUMmJjcf/aAAwDAQACEQMRAD8Atjqx6AAAAAAAAAE9C2w7VtN1bqmmVHCnElN3vsJ01FySk7IqrSnGm5U1drYsJsiqO18sMiJ4lQavSSeN7aNRZoT1dLf54lLxlP6fX278itWIYbqnUUrinWUqhC1FBq7iuaipNRd0X0ZTlTTqKz5EIgWAAdewsPCexMo5i8wI5+MdBysPls75eoz8bmzK2fp7mmPMPFJ2BP8ALroucD8/Q0PM/Hh68PYxvI/Zx9Pu9zM27h3GcPKeJzl5HPTmkZ+Iy2VsvSbOCzXlfP1djkDimgABPQuMM1bTlU0bzSDlTZHF72LYTpuMZJyV0VV4znTcabs3uTptaqK1szNUvX5Muhlwu7RoJqvPV1d/ngVPB0/p9Dbvz/pXrFsOVTq6Vo2mVKlLZnN3sITcXJuKsi6jGcaaVR3fMhECwAAAAAAAAP/Z" alt="Stacks" className="w-12 h-12 rounded-md" />
-                           <div>
-                              <h3 className="font-bold uppercase">Stacks Blockchain</h3>
-                              <p className="text-sm font-mono opacity-60">Settling transactions on Bitcoin L1</p>
+                  <SimulationScroll theme={isDark ? `dark` : `light`} />
+
+                  {/* --- FEATURES SECTION --- */}
+                  {/* --- POWERFUL FEATURES --- */}
+                  <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-black' : 'bg-white'}`}>
+                     <div className="max-w-7xl mx-auto">
+                        <div className="mb-16">
+                           <h2 className={`text-5xl font-display font-black uppercase mb-4 ${isDark ? 'text-white' : 'text-black'}`}>Powerful Features</h2>
+                           <p className={`text-lg font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Advanced tooling for the Stacks Blockchain ecosystem</p>
+                        </div>
+                        <div className="grid md:grid-cols-3 gap-8">
+                           <FeatureCard icon={<Code2 size={32} />} title="Clarity Editor" desc={<span>High-performance <a href="https://microsoft.github.io/monaco-editor/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Monaco editor</a> with real-time syntax highlighting for <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarity</a> smart contracts.</span>} theme={theme} />
+                           <FeatureCard icon={<Cpu size={32} />} title="Static Analysis" desc={<span>Integrated <a href="https://docs.stacks.co/docs/clarity/language-overview#clarity-check" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">check command</a> to catch post-condition errors and estimate execution costs before deployment.</span>} theme={theme} />
+                           <FeatureCard icon={<Bot size={32} />} title="AI Debugger" desc={<span>LabSTX AI (powered by <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Gemini</a>) helps optimize your Clarity logic and explain contract traits.</span>} theme={theme} />
+                           <FeatureCard icon={<Wallet size={32} />} title="Stacks Wallets" desc={<span>Full integration with <a href="https://leather.io/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Leather</a> and <a href="https://xverse.app/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Xverse</a>. Manage STX balances and <a href="https://github.com/stacksgov/sips/blob/main/sips/sip-010/sip-010-fungible-token-standard.md" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">SIP-010</a> tokens natively.</span>} theme={theme} />
+                           <FeatureCard icon={<FolderTree size={32} />} title="Project Scaffolding" desc={<span>Manage multiple contract files and complex Stacks projects with a virtual file system and <a href="https://github.com/hirosystems/clarinet" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarinet</a>-style logic.</span>} theme={theme} />
+                           <FeatureCard icon={<Rocket size={32} />} title="Seamless Deploy" desc={<span>One-click deployment to Stacks Mainnet or Testnet with real-time <a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">explorer</a> tracking.</span>} theme={theme} />
+                        </div>
+                     </div>
+                  </section>
+
+                  {/* --- SUPPORTED LANGUAGES --- */}
+                  <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#f3f4f6]'}`}>
+                     <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="space-y-8">
+                           <div className="space-y-4">
+                              <h2 className={`text-5xl md:text-6xl font-display font-black uppercase leading-[0.9] ${isDark ? 'text-white' : 'text-black'}`}>
+                                 Built for <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline transition-all">Clarity</a>
+                              </h2>
+                              <p className="text-xl font-mono opacity-80 max-w-xl">
+                                 The decidable language that brings predictable, secure smart contracts to the <a href="https://bitcoin.org" target="_blank" rel="noopener noreferrer" className="hover:text-[#2d5bff] underline decoration-dotted">Bitcoin ecosystem</a> via <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="hover:text-[#2d5bff] underline decoration-dotted">Stacks</a>.
+                              </p>
+                           </div>
+
+                           <div className="grid gap-4">
+                              <div className={`flex items-center gap-4 p-4 border-2 shadow-neo ${isDark ? 'bg-black border-gray-700' : 'bg-white border-black'}`}>
+                                 <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIACgAKAMBEQACEQEDEQH/xAAYAAEAAwEAAAAAAAAAAAAAAAAAAwQGBf/EACsQAAAFAQYEBwEAAAAAAAAAAAABAgMRBAUSExUhcTEyQWEiNUJRgqHSFP/EABoBAQADAAMAAAAAAAAAAAAAAAACAwUEBgf/xAAqEQACAQIEBAUFAAAAAAAAAAAAAQIDEQQSE0ExUYLBISNh0fAUMmJjcf/aAAwDAQACEQMRAD8Atjqx6AAAAAAAAAE9C2w7VtN1bqmmVHCnElN3vsJ01FySk7IqrSnGm5U1drYsJsiqO18sMiJ4lQavSSeN7aNRZoT1dLf54lLxlP6fX278itWIYbqnUUrinWUqhC1FBq7iuaipNRd0X0ZTlTTqKz5EIgWAAdewsPCexMo5i8wI5+MdBysPls75eoz8bmzK2fp7mmPMPFJ2BP8ALroucD8/Q0PM/Hh68PYxvI/Zx9Pu9zM27h3GcPKeJzl5HPTmkZ+Iy2VsvSbOCzXlfP1djkDimgABPQuMM1bTlU0bzSDlTZHF72LYTpuMZJyV0VV4znTcabs3uTptaqK1szNUvX5Muhlwu7RoJqvPV1d/ngVPB0/p9Dbvz/pXrFsOVTq6Vo2mVKlLZnN3sITcXJuKsi6jGcaaVR3fMhECwAAAAAAAAP/Z" alt="Stacks" className="w-12 h-12 rounded-md" />
+                                 <div>
+                                    <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="font-bold uppercase flex items-center gap-2 hover:text-[#2d5bff] transition-colors">Stacks Blockchain <ExternalLink size={14} className="opacity-40" /></a>
+                                    <p className="text-sm font-mono opacity-60">Settling transactions on Bitcoin L1</p>
+                                 </div>
+                              </div>
+
+                              <ul className="space-y-3 font-mono text-sm">
+                                 <li className="flex items-start gap-2">
+                                    <span className="text-[#2d5bff] font-bold">//</span>
+                                    <span>Decidable: Know exactly what your code does before it runs.</span>
+                                 </li>
+                                 <li className="flex items-start gap-2">
+                                    <span className="text-[#2d5bff] font-bold">//</span>
+                                    <span>No Compiler: The source code is the bytecode.</span>
+                                 </li>
+                                 <li className="flex items-start gap-2">
+                                    <span className="text-[#2d5bff] font-bold">//</span>
+                                    <span>Direct Bitcoin Access: Built-in visibility into BTC state.</span>
+                                 </li>
+                              </ul>
                            </div>
                         </div>
 
-                        <ul className="space-y-3 font-mono text-sm">
-                           <li className="flex items-start gap-2">
-                              <span className="text-[#2d5bff] font-bold">//</span>
-                              <span>Decidable: Know exactly what your code does before it runs.</span>
-                           </li>
-                           <li className="flex items-start gap-2">
-                              <span className="text-[#2d5bff] font-bold">//</span>
-                              <span>No Compiler: The source code is the bytecode.</span>
-                           </li>
-                           <li className="flex items-start gap-2">
-                              <span className="text-[#2d5bff] font-bold">//</span>
-                              <span>Direct Bitcoin Access: Built-in visibility into BTC state.</span>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
+                        <div className={`relative border-2 shadow-neo-black p-8 font-mono text-sm leading-relaxed ${isDark ? 'bg-black border-gray-700' : 'bg-[#1a1a1a] text-gray-300'}`}>
+                           <div className="absolute top-0 right-0 p-2 text-[10px] uppercase tracking-widest opacity-30">clarity-v2</div>
+                           <div className="text-green-400 opacity-50 mb-4">;; Simple Counter Contract</div>
 
-                  <div className={`relative border-2 shadow-neo-black p-8 font-mono text-sm leading-relaxed ${isDark ? 'bg-black border-gray-700' : 'bg-[#1a1a1a] text-gray-300'}`}>
-                     <div className="absolute top-0 right-0 p-2 text-[10px] uppercase tracking-widest opacity-30">clarity-v2</div>
-                     <div className="text-green-400 opacity-50 mb-4">;; Simple Counter Contract</div>
-
-                     <div className="text-blue-400">(define-data-var counter int 0)</div>
-                     <br />
-                     <div className="text-blue-400">(define-public (increment)</div>
-                     <div className="pl-4 text-blue-400">
-                        (begin
-                        <div className="pl-4">(var-set counter (+ (var-get counter) 1))</div>
-                        <div className="pl-4">(ok (var-get counter))</div>
-                        )
-                     </div>
-                     <div className="text-blue-400">)</div>
-                     <br />
-                     <div className="text-blue-400">(define-read-only (get-counter)</div>
-                     <div className="pl-4 text-blue-400">(ok (var-get counter))</div>
-                     <div className="text-blue-400">)</div>
-                  </div>
-               </div>
-            </section>
-
-            {/* --- USE CASES --- */}
-            <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-black' : 'bg-white'}`}>
-               <div className="max-w-7xl mx-auto">
-                  <h2 className="text-5xl font-display font-black uppercase mb-12">Tailored For</h2>
-                  <div className="grid md:grid-cols-2 gap-8">
-                     <UseCaseCard icon={<Zap size={24} />} title="Clarity Mastery" desc="The ultimate environment for learning Stacks development without the overhead of local environments." theme={theme} />
-                     <UseCaseCard icon={<Activity size={24} />} title="Rapid Prototyping" desc="Test and iterate on SIP-010 or SIP-009 protocols in a sandbox before moving to production." theme={theme} />
-                  </div>
-               </div>
-            </section>
-
-            {/* --- GETTING STARTED --- */}
-            <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#f3f4f6]'}`}>
-               <div className="max-w-7xl mx-auto text-center">
-                  <h2 className="text-5xl font-display font-black uppercase mb-12">Start Building on Stacks</h2>
-                  <div className="grid md:grid-cols-3 gap-8 mb-12">
-                     <StepCard number="1" title="Launch IDE" desc="Open LabSTX and select your workspace." theme={theme} />
-                     <StepCard number="2" title="Code Clarity" desc="Use our templates to write your contract." theme={theme} />
-                     <StepCard number="3" title="Deploy" desc="Broadcast your contract to the Stacks Blockchain." theme={theme} />
-                  </div>
-                  <NeoButton variant="primary" className="!text-lg !px-12 !py-5" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')}>Launch LabSTX IDE</NeoButton>
-               </div>
-            </section>
-
-            {/* --- FOOTER --- */}
-            <footer className={`py-16 px-6 border-t-4 border-[#2d5bff] bg-black text-white`}>
-               <div className="max-w-7xl mx-auto">
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                     <div className="space-y-4">
-                        <div className="flex items-center gap-2">
-                           <img src={`/lab_stx.png`} alt="LabSTX" className="w-5" />
-                           <p className="font-black text-xl">LabSTX</p>
+                           <div className="text-blue-400">(define-data-var counter int 0)</div>
+                           <br />
+                           <div className="text-blue-400">(define-public (increment)</div>
+                           <div className="pl-4 text-blue-400">
+                              (begin
+                              <div className="pl-4">(var-set counter (+ (var-get counter) 1))</div>
+                              <div className="pl-4">(ok (var-get counter))</div>
+                              )
+                           </div>
+                           <div className="text-blue-400">)</div>
+                           <br />
+                           <div className="text-blue-400">(define-read-only (get-counter)</div>
+                           <div className="pl-4 text-blue-400">(ok (var-get counter))</div>
+                           <div className="text-blue-400">)</div>
                         </div>
-                        <p className="text-sm font-mono opacity-60">The premier browser-based development environment for Stacks Blockchain developers.</p>
                      </div>
-                     <div>
-                        <h3 className="font-black uppercase text-[#2d5bff] mb-4">Ecosystem</h3>
-                        <ul className="text-sm font-mono space-y-2 opacity-70">
-                           <li className="hover:text-[#2d5bff] cursor-pointer">Stacks Docs</li>
-                           <li className="hover:text-[#2d5bff] cursor-pointer">Clarity Language</li>
-                           <li className="hover:text-[#2d5bff] cursor-pointer">Explorer</li>
-                        </ul>
+                  </section>
+
+                  {/* --- USE CASES --- */}
+                  <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-black' : 'bg-white'}`}>
+                     <div className="max-w-7xl mx-auto">
+                        <h2 className="text-5xl font-display font-black uppercase mb-12">Tailored For</h2>
+                        <div className="grid md:grid-cols-2 gap-8">
+                           <UseCaseCard icon={<Zap size={24} />} title="Clarity Mastery" desc="The ultimate environment for learning Stacks development without the overhead of local environments." theme={theme} />
+                           <UseCaseCard icon={<Activity size={24} />} title="Rapid Prototyping" desc={<span>Test and iterate on <a href="https://github.com/stacksgov/sips/blob/main/sips/sip-010/sip-010-fungible-token-standard.md" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">SIP-010</a> or <a href="https://github.com/stacksgov/sips/blob/main/sips/sip-009/sip-009-nft-standard.md" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">SIP-009</a> protocols in a sandbox before moving to production.</span>} theme={theme} />
+                        </div>
                      </div>
-                  </div>
-                  <div className="pt-8 border-t border-gray-800 flex justify-between items-center opacity-50 text-xs font-mono">
-                     <span>© 2026 LabSTX. Built for the Stacks Community.</span>
-                     <div className="flex gap-4"><Github size={18} className="cursor-pointer hover:text-[#2d5bff]" /><Twitter size={18} className="cursor-pointer hover:text-[#2d5bff]" /></div>
-                  </div>
-               </div>
-            </footer>
+                  </section>
+
+                  {/* --- GETTING STARTED --- */}
+                  <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#f3f4f6]'}`}>
+                     <div className="max-w-7xl mx-auto text-center">
+                        <h2 className="text-5xl font-display font-black uppercase mb-12">Start Building on Stacks</h2>
+                        <div className="grid md:grid-cols-3 gap-8 mb-12">
+                           <a href="https://lab-stx-ide.vercel.app/" className="block group transition-transform hover:-translate-y-1"><StepCard number="1" title="Launch IDE" desc="Open LabSTX and select your workspace." theme={theme} /></a>
+                           <a href="https://docs.stacks.co/docs/clarity" target="_blank" rel="noopener noreferrer" className="block group transition-transform hover:-translate-y-1"><StepCard number="2" title="Code Clarity" desc="Use our templates to write your contract." theme={theme} /></a>
+                           <a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="block group transition-transform hover:-translate-y-1"><StepCard number="3" title="Deploy" desc="Broadcast your contract to the Stacks Blockchain." theme={theme} /></a>
+                        </div>
+                        <NeoButton variant="primary" className="!text-lg !px-12 !py-5" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')}>Launch LabSTX IDE</NeoButton>
+                     </div>
+                  </section>
+
+                  {/* --- FOOTER --- */}
+                  <footer className={`py-16 px-6 border-t-4 border-[#2d5bff] bg-black text-white`}>
+                     <div className="max-w-7xl mx-auto">
+                        {/* Main Footer Content */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                           <div className="space-y-6">
+                              <div className="flex items-center gap-2">
+                                 <img src={`/lab_stx.png`} alt="LabSTX" className="w-5" />
+                                 <p className="font-black text-2xl tracking-tighter">LabSTX</p>
+                              </div>
+                              <p className="text-sm font-mono opacity-60 leading-relaxed max-w-xs">
+                                 The premier browser-based development environment for Stacks Blockchain developers. Write, test, and deploy Clarity contracts with zero setup.
+                              </p>
+                           </div>
+
+                           <div>
+                              <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Product</h3>
+                              <ul className="text-sm font-mono space-y-4">
+                                 <li><a href="https://lab-stx-ide.vercel.app/" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Launch IDE <ArrowRight size={14} /></a></li>
+                                 <li><a href="https://github.com/LabSTX" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Contract Templates</a></li>
+                                 <li><a href="https://lab-stx-ide.vercel.app/" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">AI Debugger</a></li>
+                                 <li><a href="https://github.com/LabSTX" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Open Source</a></li>
+                              </ul>
+                           </div>
+
+                           <div>
+                              <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Ecosystem</h3>
+                              <ul className="text-sm font-mono space-y-4">
+                                 <li><a href="https://docs.stacks.co/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Stacks Docs <ExternalLink size={14} /></a></li>
+                                 <li><a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Clarity Language</a></li>
+                                 <li><a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Hiro Explorer <ExternalLink size={14} /></a></li>
+                                 <li><a href="https://www.stacks.co/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Stacks Foundation</a></li>
+                              </ul>
+                           </div>
+
+                           <div>
+                              <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Community</h3>
+                              <ul className="text-sm font-mono space-y-4">
+                                 <li><a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Twitter / X</a></li>
+                                 <li><a href="https://discord.com/invite/stacks" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Discord</a></li>
+                                 <li><a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">GitHub</a></li>
+                                 <li><a href="mailto:hello@labstx.io" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Contact Us</a></li>
+                              </ul>
+                           </div>
+                        </div>
+
+                        {/* Bottom Footer */}
+                        <div className="pt-8 border-t border-gray-900 flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-mono">
+                           <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+                              <span className="opacity-40">© 2026 LabSTX. Built for the <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="hover:text-[#2d5bff] hover:opacity-100 transition-all">Stacks Community</a>.</span>
+                              <div className="flex gap-6 opacity-60">
+                                 <a href="#" className="hover:text-[#2d5bff] transition-colors">Privacy Policy</a>
+                                 <a href="#" className="hover:text-[#2d5bff] transition-colors">Terms of Service</a>
+                              </div>
+                           </div>
+                           <div className="flex gap-6">
+                              <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><Github size={20} /></a>
+                              <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><Twitter size={20} /></a>
+                              <a href="https://discord.com/invite/stacks" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><ExternalLink size={20} /></a>
+                           </div>
+                        </div>
+                     </div>
+                  </footer>
+               </>
+            )}
          </main>
       </div>
    );
@@ -536,7 +774,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
 
 
 
-const FeatureCard = ({ icon, title, desc, theme }: { icon: React.ReactNode, title: string, desc: string, theme: 'light' | 'dark' }) => {
+const FeatureCard = ({ icon, title, desc, theme }: { icon: React.ReactNode, title: string, desc: React.ReactNode, theme: 'light' | 'dark' }) => {
    const isDark = theme === 'dark';
    return (
       <div className={`p-6 border-2 hover:shadow-neo transition-all ${isDark
@@ -552,7 +790,7 @@ const FeatureCard = ({ icon, title, desc, theme }: { icon: React.ReactNode, titl
    );
 };
 
-const UseCaseCard = ({ icon, title, desc, theme }: { icon: React.ReactNode, title: string, desc: string, theme: 'light' | 'dark' }) => {
+const UseCaseCard = ({ icon, title, desc, theme }: { icon: React.ReactNode, title: string, desc: React.ReactNode, theme: 'light' | 'dark' }) => {
    const isDark = theme === 'dark';
    return (
       <div className={`p-6 border-2 hover:shadow-neo transition-all ${isDark
@@ -575,7 +813,7 @@ const UseCaseCard = ({ icon, title, desc, theme }: { icon: React.ReactNode, titl
    );
 };
 
-const StepCard = ({ number, title, desc, theme }: { number: string, title: string, desc: string, theme: 'light' | 'dark' }) => {
+const StepCard = ({ number, title, desc, theme }: { number: string, title: string, desc: React.ReactNode, theme: 'light' | 'dark' }) => {
    const isDark = theme === 'dark';
    return (
       <div className={`p-6 border-2 hover:shadow-neo transition-all text-center ${isDark
