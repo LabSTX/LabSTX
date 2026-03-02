@@ -353,10 +353,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                         <span className="text-xs font-mono font-bold text-[#2d5bff] uppercase tracking-widest bg-[#2d5bff]/10 px-2 py-1">Phase 1 (Week 3)</span>
                         <h3 className="text-3xl font-display font-black uppercase mt-2">Core Stabilization</h3>
                      </div>
-                     <div className="text-right">
-                        <div className="text-sm font-mono opacity-60">Budget Allocation</div>
-                        <div className="text-xl font-black text-[#2d5bff]">25% — $2,250</div>
-                     </div>
                   </div>
                   <p className="font-mono text-sm opacity-80 mb-6 italic underline decoration-[#2d5bff]/30">Objective: Improve reliability and stability of the core IDE workflow.</p>
                   <div className="grid md:grid-cols-2 gap-8">
@@ -393,10 +389,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                      <div>
                         <span className="text-xs font-mono font-bold opacity-60 uppercase tracking-widest bg-gray-500/10 px-2 py-1">Phase 2 (Week 6)</span>
                         <h3 className="text-3xl font-display font-black uppercase mt-2">ABI & Debugging</h3>
-                     </div>
-                     <div className="text-right">
-                        <div className="text-sm font-mono opacity-60">Budget Allocation</div>
-                        <div className="text-xl font-black">35% — $3,150</div>
                      </div>
                   </div>
                   <p className="font-mono text-sm opacity-80 mb-6 italic underline decoration-gray-500/30">Objective: Enable seamless smart contract interaction and improve debugging visibility.</p>
@@ -435,10 +427,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                         <span className="text-xs font-mono font-bold opacity-60 uppercase tracking-widest bg-gray-500/10 px-2 py-1">Phase 3 (Week 9-10)</span>
                         <h3 className="text-3xl font-display font-black uppercase mt-2">Education & Docs</h3>
                      </div>
-                     <div className="text-right">
-                        <div className="text-sm font-mono opacity-60">Budget Allocation</div>
-                        <div className="text-xl font-black">40% — $3,600</div>
-                     </div>
                   </div>
                   <p className="font-mono text-sm opacity-80 mb-6 italic underline decoration-gray-500/30">Objective: Provide comprehensive developer documentation and onboarding materials.</p>
                   <div className="grid md:grid-cols-2 gap-8">
@@ -461,43 +449,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                      </div>
                   </div>
                </div>
-            </div>
-         </div>
-
-         {/* Budget Breakdown Table */}
-         <div className="mt-32">
-            <h3 className="text-4xl font-display font-black uppercase mb-12 flex items-center gap-4"><DollarSign className="text-[#2d5bff]" /> Budget Summary</h3>
-            <div className={`border-2 shadow-neo-black overflow-hidden ${isDark ? 'border-gray-800' : 'border-black'}`}>
-               <table className="w-full font-mono text-sm">
-                  <thead>
-                     <tr className={`border-b-2 ${isDark ? 'bg-[#1a1a1a] border-gray-800' : 'bg-gray-100 border-black'}`}>
-                        <th className="p-4 text-left uppercase">Phase</th>
-                        <th className="p-4 text-left uppercase">Focus Area</th>
-                        <th className="p-4 text-left uppercase text-[#2d5bff]">Amount (USD)</th>
-                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-800">
-                     <tr>
-                        <td className="p-4">Phase 1</td>
-                        <td className="p-4">Core Stabilization</td>
-                        <td className="p-4 font-bold">$2,250</td>
-                     </tr>
-                     <tr>
-                        <td className="p-4">Phase 2</td>
-                        <td className="p-4">ABI & Debugging</td>
-                        <td className="p-4 font-bold">$3,150</td>
-                     </tr>
-                     <tr>
-                        <td className="p-4">Phase 3</td>
-                        <td className="p-4">Documentation & Education</td>
-                        <td className="p-4 font-bold">$3,600</td>
-                     </tr>
-                     <tr className={`font-black ${isDark ? 'bg-[#2d5bff]/10' : 'bg-gray-50'}`}>
-                        <td colSpan={2} className="p-4 text-right uppercase">Total Requested</td>
-                        <td className="p-4 text-xl text-[#2d5bff]">$9,000</td>
-                     </tr>
-                  </tbody>
-               </table>
             </div>
          </div>
 
