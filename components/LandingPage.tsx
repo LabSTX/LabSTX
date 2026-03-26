@@ -7,8 +7,10 @@ import {
    Copy, Check, Play, Database, Server, Bot, FolderTree, Rocket,
    Github, Twitter, ExternalLink, FileText, BookOpen, Calendar, MapPin,
    Sun, Moon,
-   X, CheckCircle2, Circle, DollarSign, Target, ListChecks, History
+   X, CheckCircle2, Circle, DollarSign, Target, ListChecks, History,
+   LineChart, PieChart, Activity as ActivityIcon
 } from 'lucide-react';
+import { StatisticsView } from './StatisticsView';
 
 interface LandingPageProps {
    onLaunch: () => void;
@@ -331,7 +333,7 @@ const AsciiBackground: React.FC = () => {
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggleTheme }) => {
    const isDark = theme === 'dark';
-   const [currentView, setCurrentView] = useState<'landing' | 'roadmap'>('landing');
+   const [currentView, setCurrentView] = useState<'landing' | 'roadmap' | 'statistics'>('landing');
 
    const RoadmapView = () => (
       <div className="max-w-4xl mx-auto py-24 px-6 animate-fade-in">
@@ -500,17 +502,25 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                >
                   Roadmap
                </button>
+               <button
+                  onClick={() => setCurrentView('statistics')}
+                  className={`font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'statistics' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+               >
+                  Statistics
+               </button>
                <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Github /></a>
                <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Twitter /></a>
 
                <button onClick={toggleTheme} className="p-2 rounded-lg transition-colors">{isDark ? <Sun size={20} /> : <Moon size={20} />}</button>
-               <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')}>Get Started</NeoButton>
+               <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app', '_blank', 'noopener,noreferrer')}>Get Started</NeoButton>
             </div>
          </header>
 
          <main className="flex-1">
             {currentView === 'roadmap' ? (
                <RoadmapView />
+            ) : currentView === 'statistics' ? (
+               <StatisticsView theme={theme} />
             ) : (
                <>
                   {/* --- HERO SECTION (HIRO STYLE) --- */}
@@ -524,7 +534,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                         <div className="max-w-2xl mx-auto space-y-8">
                            <p className={`text-xl font-medium font-mono ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>Write, compile, deploy, and test <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarity</a> smart contracts on <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Stacks</a>. No local setup required.</p>
                            <div className="flex justify-center">
-                              <button onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
+                              <button onClick={() => window.open('https://lab-stx-ide.vercel.app', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
                                  Start building <ArrowRight size={18} />
                               </button>
                            </div>
@@ -563,6 +573,56 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                            <FeatureCard icon={<Wallet size={32} />} title="Stacks Wallets" desc={<span>Full integration with <a href="https://leather.io/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Leather</a> and <a href="https://xverse.app/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Xverse</a>. Manage STX balances and <a href="https://github.com/stacksgov/sips/blob/main/sips/sip-010/sip-010-fungible-token-standard.md" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">SIP-010</a> tokens natively.</span>} theme={theme} />
                            <FeatureCard icon={<FolderTree size={32} />} title="Project Scaffolding" desc={<span>Manage multiple contract files and complex Stacks projects with a virtual file system and <a href="https://github.com/hirosystems/clarinet" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarinet</a>-style logic.</span>} theme={theme} />
                            <FeatureCard icon={<Rocket size={32} />} title="Seamless Deploy" desc={<span>One-click deployment to Stacks Mainnet or Testnet with real-time <a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">explorer</a> tracking.</span>} theme={theme} />
+                        </div>
+                     </div>
+                  </section>
+
+                  {/* --- TRY IT NOW (DEEP LINKS) --- */}
+                  <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-[#0a0a0a]' : 'bg-gray-50'}`}>
+                     <div className="max-w-7xl mx-auto text-center">
+                        <div className="mb-16">
+                           <h2 className={`text-5xl font-display font-black uppercase mb-4 ${isDark ? 'text-white' : 'text-black'}`}>Try it Now</h2>
+                           <p className={`text-lg font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Launch the IDE instantly with a pre-configured template or a code snippet</p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                           <div className={`p-8 border-2 shadow-neo text-left transition-all hover:-translate-y-1 ${isDark ? 'bg-black border-gray-700' : 'bg-white border-black'}`}>
+                              <div className="flex items-center gap-3 mb-4">
+                                 <div className="w-10 h-10 bg-[#3b82f6]/10 text-[#3b82f6] flex items-center justify-center">
+                                    <Box size={24} />
+                                 </div>
+                                 <h3 className="text-2xl font-display font-black uppercase">Hello World</h3>
+                              </div>
+                              <p className="font-mono text-sm mb-8 opacity-70">Start with a basic Clarity contract structure and build your first Stacks app in seconds.</p>
+                              <NeoButton
+                                 variant="primary"
+                                 theme={theme}
+                                 onClick={() => window.open('https://lab-stx-ide.vercel.app?template_id=hello-world', '_blank')}
+                                 className="w-full justify-center gap-2"
+                              >
+                                 <Rocket size={18} />
+                                 Open Template
+                              </NeoButton>
+                           </div>
+
+                           <div className={`p-8 border-2 shadow-neo text-left transition-all hover:-translate-y-1 ${isDark ? 'bg-black border-gray-700' : 'bg-white border-black'}`}>
+                              <div className="flex items-center gap-3 mb-4">
+                                 <div className="w-10 h-10 bg-[#3b82f6]/10 text-[#3b82f6] flex items-center justify-center">
+                                    <Code2 size={24} />
+                                 </div>
+                                 <h3 className="text-2xl font-display font-black uppercase">Counter Snippet</h3>
+                              </div>
+                              <p className="font-mono text-sm mb-8 opacity-70">Load a pre-written counter smart contract directly into the editor for testing.</p>
+                              <NeoButton
+                                 variant="primary"
+                                 theme={theme}
+                                 onClick={() => window.open('https://lab-stx-ide.vercel.app?template_id=hello-world', '_blank')}
+                                 className="w-full justify-center gap-2"
+                              >
+                                 <Rocket size={18} />
+                                 Open Template
+                              </NeoButton>
+                           </div>
                         </div>
                      </div>
                   </section>
@@ -607,7 +667,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                         </div>
 
                         <div className={`relative border-2 shadow-neo-black p-8 font-mono text-sm leading-relaxed ${isDark ? 'bg-black border-gray-700' : 'bg-[#1a1a1a] text-gray-300'}`}>
-                           <div className="absolute top-0 right-0 p-2 text-[10px] uppercase tracking-widest opacity-30">clarity-v2</div>
+                           <div className="absolute top-0 right-0 p-2 text-[10px] uppercase tracking-widest">   <NeoButton
+                              variant="primary"
+                              theme={theme}
+                              onClick={() => window.open('https://lab-stx-ide.vercel.app/?template_id=counter', '_blank')}
+                              className="w-full justify-center gap-2"
+                           >
+                              <Rocket size={18} />
+                              Open in IDE
+                           </NeoButton>
+                           </div>
                            <div className="text-green-400 opacity-50 mb-4">;; Simple Counter Contract</div>
 
                            <div className="text-blue-400">(define-data-var counter int 0)</div>
@@ -644,11 +713,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                      <div className="max-w-7xl mx-auto text-center">
                         <h2 className="text-5xl font-display font-black uppercase mb-12">Start Building on Stacks</h2>
                         <div className="grid md:grid-cols-3 gap-8 mb-12">
-                           <a href="https://lab-stx-ide.vercel.app/" className="block group transition-transform hover:-translate-y-1"><StepCard number="1" title="Launch IDE" desc="Open LabSTX and select your workspace." theme={theme} /></a>
+                           <a href="https://lab-stx-ide.vercel.app" className="block group transition-transform hover:-translate-y-1"><StepCard number="1" title="Launch IDE" desc="Open LabSTX and select your workspace." theme={theme} /></a>
                            <a href="https://docs.stacks.co/docs/clarity" target="_blank" rel="noopener noreferrer" className="block group transition-transform hover:-translate-y-1"><StepCard number="2" title="Code Clarity" desc="Use our templates to write your contract." theme={theme} /></a>
                            <a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="block group transition-transform hover:-translate-y-1"><StepCard number="3" title="Deploy" desc="Broadcast your contract to the Stacks Blockchain." theme={theme} /></a>
                         </div>
-                        <NeoButton variant="primary" className="!text-lg !px-12 !py-5" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app/', '_blank', 'noopener,noreferrer')}>Launch LabSTX IDE</NeoButton>
+                        <NeoButton variant="primary" className="!text-lg !px-12 !py-5" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app', '_blank', 'noopener,noreferrer')}>Launch LabSTX IDE</NeoButton>
                      </div>
                   </section>
 
@@ -670,9 +739,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                            <div>
                               <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Product</h3>
                               <ul className="text-sm font-mono space-y-4">
-                                 <li><a href="https://lab-stx-ide.vercel.app/" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Launch IDE <ArrowRight size={14} /></a></li>
+                                 <li><a href="https://lab-stx-ide.vercel.app" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Launch IDE <ArrowRight size={14} /></a></li>
                                  <li><a href="https://github.com/LabSTX" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Contract Templates</a></li>
-                                 <li><a href="https://lab-stx-ide.vercel.app/" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">AI Debugger</a></li>
+                                 <li><a href="https://lab-stx-ide.vercel.app" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">AI Debugger</a></li>
                                  <li><a href="https://github.com/LabSTX" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Open Source</a></li>
                               </ul>
                            </div>
