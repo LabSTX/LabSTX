@@ -124,13 +124,13 @@ export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme })
         if (isManual) setRefreshing(true);
         try {
             const [summary, activity, feed, distribution, leaderboard, usage, explorer] = await Promise.all([
-                fetch('/ide-api/stats/summary').then(r => r.json()),
-                fetch('/ide-api/stats/activity').then(r => r.json()),
-                fetch('/ide-api/stats/feed').then(r => r.json()),
-                fetch('/ide-api/stats/distribution').then(r => r.json()),
-                fetch('/ide-api/stats/leaderboard').then(r => r.json()),
-                fetch('/ide-api/stats/usage').then(r => r.json()),
-                fetch('/ide-api/stats/explorer').then(r => r.json())
+                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/summary').then(r => r.json()),
+                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/activity').then(r => r.json()),
+                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/feed').then(r => r.json()),
+                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/distribution').then(r => r.json()),
+                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/leaderboard').then(r => r.json()),
+                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/usage').then(r => r.json()),
+                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/explorer').then(r => r.json())
             ]);
 
             setStats({
