@@ -471,7 +471,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
          </div>
       </div>
    );
-
+   const EARLY_ACCESS_URL = "https://docs.google.com/forms/d/e/1FAIpQLSegIYqoTgB6U9s-cQDsx_Csf2b8Jfa3JJ8jz8EcrJg1oGssIg/viewform";
    return (
       <div className={`min-h-screen font-sans selection:bg-[#2d5bff] selection:text-white flex flex-col transition-colors duration-300 ${isDark ? 'bg-black text-white' : 'bg-[#f3f4f6] text-[#1a1a1a]'
          }`}>
@@ -528,15 +528,33 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                      <AsciiBackground />
                      <div className="max-w-7xl mx-auto text-center relative z-10">
                         <h1 className={`text-6xl md:text-[140px] font-display font-black uppercase leading-[0.8] tracking-tighter mb-8 ${isDark ? 'text-white' : 'text-[#1a1a1a]'}`}>
-
                            Write Clarity <br /> in Your Browser
                         </h1>
                         <div className="max-w-2xl mx-auto space-y-8">
-                           <p className={`text-xl font-medium font-mono ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>Write, compile, deploy, and test <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarity</a> smart contracts on <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Stacks</a>. No local setup required.</p>
-                           <div className="flex justify-center">
-                              <button onClick={() => window.open('https://lab-stx-ide.vercel.app', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
-                                 Start building <ArrowRight size={18} />
-                              </button>
+                           <p className={`text-xl font-medium font-mono ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                              Write, compile, deploy, and test <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarity</a> smart contracts on <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Stacks</a>. No local setup required.
+                           </p>
+
+                           {/* Added explicit Early Access link in Hero */}
+                           <div className="flex flex-col items-center gap-6">
+                              <div className="flex justify-center gap-4">
+                                 <button onClick={() => window.open('https://lab-stx-ide.vercel.app', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
+                                    Start building <ArrowRight size={18} />
+                                 </button>
+                              </div>
+                              <div className="flex flex-col items-center gap-2">
+                                 <p className={`text-sm font-mono opacity-80 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                    Public beta is live. Join Early Access for priority updates and influence features.
+                                 </p>
+                                 <a
+                                    href={EARLY_ACCESS_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`text-sm font-mono font-bold uppercase tracking-tighter border-b-2 border-[#2d5bff] pb-1 hover:font-bold transition-all`}
+                                 >
+                                    Join Early Access →
+                                 </a>
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -582,7 +600,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                      <div className="max-w-7xl mx-auto text-center">
                         <div className="mb-16">
                            <h2 className={`text-5xl font-display font-black uppercase mb-4 ${isDark ? 'text-white' : 'text-black'}`}>Try it Now</h2>
-                           <p className={`text-lg font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Launch the IDE instantly with a pre-configured template or a code snippet</p>
+                           <p className={`text-lg font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Launch the IDE instantly with a pre-configured template now</p>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -610,13 +628,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                                  <div className="w-10 h-10 bg-[#3b82f6]/10 text-[#3b82f6] flex items-center justify-center">
                                     <Code2 size={24} />
                                  </div>
-                                 <h3 className="text-2xl font-display font-black uppercase">Counter Snippet</h3>
+                                 <h3 className="text-2xl font-display font-black uppercase">Fungible Token</h3>
                               </div>
-                              <p className="font-mono text-sm mb-8 opacity-70">Load a pre-written counter smart contract directly into the editor for testing.</p>
+                              <p className="font-mono text-sm mb-8 opacity-70">Start with a basic fungible token implementation (SIP-010-like)</p>
                               <NeoButton
                                  variant="primary"
                                  theme={theme}
-                                 onClick={() => window.open('https://lab-stx-ide.vercel.app?template_id=hello-world', '_blank')}
+                                 onClick={() => window.open('https://lab-stx-ide.vercel.app/?template_id=fungible-token', '_blank')}
                                  className="w-full justify-center gap-2"
                               >
                                  <Rocket size={18} />
@@ -677,22 +695,41 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               Open in IDE
                            </NeoButton>
                            </div>
-                           <div className="text-green-400 opacity-50 mb-4">;; Simple Counter Contract</div>
+                           <div className="font-mono text-sm p-4 rounded-lg">
+                              {/* Header Comment */}
+                              <div className="text-green-400 opacity-50 mb-4">;; Counter Contract</div>
 
-                           <div className="text-blue-400">(define-data-var counter int 0)</div>
-                           <br />
-                           <div className="text-blue-400">(define-public (increment)</div>
-                           <div className="pl-4 text-blue-400">
-                              (begin
-                              <div className="pl-4">(var-set counter (+ (var-get counter) 1))</div>
-                              <div className="pl-4">(ok (var-get counter))</div>
-                              )
+                              {/* Data Variable */}
+                              <div className="text-blue-400">(define-data-var counter uint u0)</div>
+                              <br />
+
+                              {/* Increment Function */}
+                              <div className="text-blue-400">(define-public (increment)</div>
+                              <div className="pl-4 text-blue-400">
+                                 (begin
+                                 <div className="pl-4 text-blue-300">(var-set counter (+ (var-get counter) u1))</div>
+                                 <div className="pl-4 text-blue-300">(ok (var-get counter))</div>
+                                 )
+                              </div>
+                              <div className="text-blue-400">)</div>
+                              <br />
+
+                              {/* Decrement Function */}
+                              <div className="text-blue-400">(define-public (decrement)</div>
+                              <div className="pl-4 text-blue-400">
+                                 (begin
+                                 <div className="pl-4 text-blue-300">(var-set counter (- (var-get counter) u1))</div>
+                                 <div className="pl-4 text-blue-300">(ok (var-get counter))</div>
+                                 )
+                              </div>
+                              <div className="text-blue-400">)</div>
+                              <br />
+
+                              {/* Read-Only Function */}
+                              <div className="text-blue-400">(define-read-only (get-counter)</div>
+                              <div className="pl-4 text-blue-400">(ok (var-get counter))</div>
+                              <div className="text-blue-400">)</div>
                            </div>
-                           <div className="text-blue-400">)</div>
-                           <br />
-                           <div className="text-blue-400">(define-read-only (get-counter)</div>
-                           <div className="pl-4 text-blue-400">(ok (var-get counter))</div>
-                           <div className="text-blue-400">)</div>
                         </div>
                      </div>
                   </section>
