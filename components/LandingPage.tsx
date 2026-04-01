@@ -11,6 +11,9 @@ import {
    LineChart, PieChart, Activity as ActivityIcon
 } from 'lucide-react';
 import { StatisticsView } from './StatisticsView';
+import { TemplatesView } from './TemplatesView';
+import { WalletDetailView } from './WalletDetailView';
+import { useLocation, useNavigate, useParams, Link } from 'react-router-dom';
 
 interface LandingPageProps {
    onLaunch: () => void;
@@ -333,7 +336,31 @@ const AsciiBackground: React.FC = () => {
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggleTheme }) => {
    const isDark = theme === 'dark';
-   const [currentView, setCurrentView] = useState<'landing' | 'roadmap' | 'statistics'>('landing');
+   const location = useLocation();
+   const navigate = useNavigate();
+
+   // Sync currentView and selectedWallet with URL
+   const [currentView, setCurrentView] = useState<'landing' | 'roadmap' | 'statistics' | 'templates' | 'walletDetail'>('landing');
+   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
+
+   useEffect(() => {
+      const path = location.pathname;
+      if (path === '/') {
+          setCurrentView('landing');
+      } else if (path === '/roadmap') {
+          setCurrentView('roadmap');
+      } else if (path === '/statistics') {
+          setCurrentView('statistics');
+      } else if (path === '/statistics/templates') {
+          setCurrentView('templates');
+      } else if (path.startsWith('/statistics/')) {
+          const wallet = path.split('/')[2];
+          if (wallet && wallet !== 'templates') {
+              setSelectedWallet(wallet);
+              setCurrentView('walletDetail');
+          }
+      }
+   }, [location]);
 
    const RoadmapView = () => (
       <div className="max-w-4xl mx-auto py-24 px-6 animate-fade-in">
@@ -467,7 +494,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
          </div>
 
          <div className="mt-20 text-center">
-            <NeoButton variant="primary" onClick={() => setCurrentView('landing')}>Back to Home</NeoButton>
+            <NeoButton variant="primary" onClick={() => navigate('/')}>Back to Home</NeoButton>
          </div>
       </div>
    );
@@ -486,7 +513,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
             }`}>
             <div
                className="flex items-center gap-2 font-mono leading-relaxed font-black cursor-pointer group"
-               onClick={() => setCurrentView('landing')}
+               onClick={() => navigate('/')}
             >
                <img
                   src={isDark ? `/lab_stx.png` : `/lab_stx_whitee.png`}
@@ -497,14 +524,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
             </div>
             <div className="flex items-center gap-6">
                <button
-                  onClick={() => setCurrentView('roadmap')}
+                  onClick={() => navigate('/roadmap')}
                   className={`font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'roadmap' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
                >
                   Roadmap
                </button>
                <button
-                  onClick={() => setCurrentView('statistics')}
-                  className={`font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'statistics' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+                  onClick={() => navigate('/statistics')}
+                  className={`font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'statistics' || currentView === 'templates' || currentView === 'walletDetail' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
                >
                   Statistics
                </button>
@@ -520,7 +547,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
             {currentView === 'roadmap' ? (
                <RoadmapView />
             ) : currentView === 'statistics' ? (
-               <StatisticsView theme={theme} />
+               <StatisticsView 
+                  theme={theme} 
+                  onViewChange={(view: any) => {
+                      if (view === 'templates') navigate('/statistics/templates');
+                      else navigate('/statistics');
+                  }} 
+                  onWalletClick={(wallet: string) => navigate(`/statistics/${wallet}`)} 
+               />
+            ) : currentView === 'templates' ? (
+               <TemplatesView theme={theme} onBack={() => navigate('/statistics')} />
+            ) : currentView === 'walletDetail' && selectedWallet ? (
+               <WalletDetailView wallet={selectedWallet} theme={theme} onBack={() => navigate('/statistics')} />
             ) : (
                <>
                   {/* --- HERO SECTION (HIRO STYLE) --- */}

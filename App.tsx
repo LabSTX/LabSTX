@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { LandingPage } from './components/LandingPage';
 import { WorkflowBuilder } from './components/WorkflowBuilder';
 import { UnderDevelopment } from './components/UnderDevelopment';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'landing' | 'builder' | 'underdev'>('landing');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const navigate = useNavigate();
 
   // Apply theme to document
   useEffect(() => {
@@ -21,13 +22,23 @@ export default function App() {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
-  if (currentPage === 'builder') {
-    return <WorkflowBuilder />;
-  }
-
-  if (currentPage === 'underdev') {
-    return <UnderDevelopment onBack={() => setCurrentPage('landing')} theme={theme} />;
-  }
-
-  return <LandingPage onLaunch={() => setCurrentPage('underdev')} theme={theme} toggleTheme={toggleTheme} />;
+  return (
+    <Routes>
+      <Route 
+        path="/" 
+        element={<LandingPage theme={theme} toggleTheme={toggleTheme} onLaunch={() => navigate('/underdev')} />} 
+      />
+      <Route 
+        path="/statistics/*" 
+        element={<LandingPage theme={theme} toggleTheme={toggleTheme} onLaunch={() => navigate('/underdev')} />} 
+      />
+      <Route path="/builder" element={<WorkflowBuilder />} />
+      <Route 
+        path="/underdev" 
+        element={<UnderDevelopment onBack={() => navigate('/')} theme={theme} />} 
+      />
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }

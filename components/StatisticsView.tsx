@@ -96,6 +96,8 @@ interface ExplorerContract {
     network: string;
     date: string;
     gas: string;
+    status?: string;
+    reason?: string;
 }
 
 interface FullStats {
@@ -112,25 +114,39 @@ interface FullStats {
     };
     explorer: ExplorerContract[];
 }
+const API_BASE = 'https://labstx-ide-api.onrender.com/ide-api';
 
-export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme }) => {
+export const StatisticsView: React.FC<{
+    theme: 'light' | 'dark',
+    onViewChange?: (view: string) => void,
+    onWalletClick?: (wallet: string) => void
+}> = ({ theme, onViewChange, onWalletClick }) => {
     const isDark = theme === 'dark';
     const [stats, setStats] = useState<FullStats | null>(null);
     const [loading, setLoading] = useState(true);
     const [isRealtime, setIsRealtime] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
+    const [timeframe, setTimeframe] = useState('week');
+
+    // Pagination state for Explorer
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
 
     const fetchData = async (isManual = false) => {
         if (isManual) setRefreshing(true);
         try {
+            // Using a fresh local variable for timeframe if needed, but react state should be fine.
+            // Let's use a temporary constant to be absolute.
+            const targetTimeframe = timeframe;
+
             const [summary, activity, feed, distribution, leaderboard, usage, explorer] = await Promise.all([
-                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/summary').then(r => r.json()),
-                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/activity').then(r => r.json()),
-                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/feed').then(r => r.json()),
-                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/distribution').then(r => r.json()),
-                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/leaderboard').then(r => r.json()),
-                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/usage').then(r => r.json()),
-                fetch('https://labstx-ide-api.onrender.com/ide-api/stats/explorer').then(r => r.json())
+                fetch(`${API_BASE}/stats/summary`).then(r => r.json()),
+                fetch(`${API_BASE}/stats/activity?timeframe=${targetTimeframe}`).then(r => r.json()),
+                fetch(`${API_BASE}/stats/feed`).then(r => r.json()),
+                fetch(`${API_BASE}/stats/distribution`).then(r => r.json()),
+                fetch(`${API_BASE}/stats/leaderboard`).then(r => r.json()),
+                fetch(`${API_BASE}/stats/usage`).then(r => r.json()),
+                fetch(`${API_BASE}/stats/explorer`).then(r => r.json())
             ]);
 
             setStats({
@@ -154,13 +170,13 @@ export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme })
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [timeframe]);
 
     useEffect(() => {
         if (!isRealtime) return;
-        const interval = setInterval(fetchData, 30000); // Refresh every 30s
+        const interval = setInterval(() => fetchData(), 30000); // Use arrow function to ensure latest fetchData
         return () => clearInterval(interval);
-    }, [isRealtime]);
+    }, [isRealtime, timeframe, fetchData]);
 
     const formatWallet = (wallet: string) => `${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
 
@@ -243,7 +259,7 @@ export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme })
                     isDark={isDark}
                 />
                 <StatCard
-                    title="Deployments"
+                    title="Total Deployments"
                     value={stats.summary.totalDeployments.toLocaleString()}
                     trend={stats.summary.totalDeploymentsTrend}
                     icon={<Zap size={20} />}
@@ -263,13 +279,30 @@ export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme })
                 <div className={`lg:col-span-2 p-8 border-2 shadow-neo-black relative overflow-hidden ${isDark ? 'bg-[#111] border-gray-800' : 'bg-white border-black'}`}>
                     <div className="flex items-center justify-between mb-8 relative z-10">
                         <div>
-                            <h3 className="text-2xl font-display font-black uppercase">Weekly Velocity</h3>
+                            <h3 className="text-2xl font-display font-black uppercase">
+                                {timeframe === 'week' || timeframe === 'last-week' ? 'Weekly' : timeframe === 'month' ? 'Monthly' : 'Yearly'} Velocity
+                            </h3>
                             <p className="font-mono text-xs opacity-50 uppercase tracking-widest mt-1">IDE Interactions Pulse</p>
                         </div>
-                        <BarChart3 className="text-[#2d5bff] opacity-50" size={24} />
+                        <div className="flex items-center gap-4">
+                            <div className="flex flex-col items-end gap-1">
+                                <p className="font-mono text-[8px] opacity-40 uppercase tracking-widest">Timeframe</p>
+                                <select
+                                    value={timeframe}
+                                    onChange={(e) => setTimeframe(e.target.value)}
+                                    className={`bg-transparent border-2 border-black/10 dark:border-white/10 font-mono text-[10px] uppercase font-bold p-1 focus:outline-none focus:border-[#2d5bff] cursor-pointer ${isDark ? 'text-white' : 'text-black'}`}
+                                >
+                                    <option value="week" className={isDark ? 'bg-[#111]' : 'bg-white'}>THIS WEEK</option>
+                                    <option value="last-week" className={isDark ? 'bg-[#111]' : 'bg-white'}>LAST WEEK</option>
+                                    <option value="month" className={isDark ? 'bg-[#111]' : 'bg-white'}>THIS MONTH</option>
+                                    <option value="year" className={isDark ? 'bg-[#111]' : 'bg-white'}>THIS YEAR</option>
+                                </select>
+                            </div>
+                            <BarChart3 className="text-[#2d5bff] opacity-50" size={24} />
+                        </div>
                     </div>
 
-                    <div className="h-[300px] w-full relative z-10">
+                    <div className="h-[300px] w-full relative z-10" key={timeframe}>
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart
                                 data={stats.activity.labels.map((l, i) => ({
@@ -474,12 +507,17 @@ export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme })
                                     {idx + 1}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <div className="font-mono text-[10px] truncate">{formatWallet(user.wallet)}</div>
+                                    <button
+                                        onClick={() => onWalletClick?.(user.wallet)}
+                                        className="font-mono text-[10px] truncate hover:text-[#2d5bff] transition-colors text-left w-full"
+                                    >
+                                        {formatWallet(user.wallet)}
+                                    </button>
                                 </div>
                                 <div className="text-right">
                                     <div className="font-display font-black text-xs">{user.count}</div>
-                                    <div className={`font-mono text-[8px] flex items-center justify-end gap-0.5 ${user.trend >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
-                                        {user.trend >= 0 ? '+' : ''}{user.trend} <Award size={8} />
+                                    <div className={`font-mono text-[8px] flex items-center justify-end gap-0.5 ${user.trend > 0 ? 'text-emerald-500' : user.trend < 0 ? 'text-rose-500' : 'opacity-30'}`}>
+                                        {user.trend > 0 ? '+' : ''}{user.trend} <Award size={8} />
                                     </div>
                                 </div>
                             </div>
@@ -510,7 +548,10 @@ export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme })
                             );
                         })}
                     </div>
-                    <button className="mt-8 w-full py-2 border border-dashed border-gray-500/30 font-mono text-[10px] uppercase opacity-50 hover:opacity-100 transition-all">
+                    <button
+                        onClick={() => onViewChange?.('templates')}
+                        className="mt-8 w-full py-2 border border-dashed border-gray-500/30 font-mono text-[10px] uppercase opacity-50 hover:opacity-100 transition-all hover:bg-[#2d5bff]/10 hover:border-[#2d5bff]/50"
+                    >
                         View All Blueprints
                     </button>
                 </div>
@@ -539,56 +580,115 @@ export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme })
                         <thead>
                             <tr className={`${isDark ? 'bg-black/50' : 'bg-gray-50'} font-mono text-[10px] uppercase tracking-wider text-gray-500`}>
                                 <th className="px-6 py-4 border-b-2 border-dashed border-gray-500/20">Name</th>
+                                <th className="px-6 py-4 border-b-2 border-dashed border-gray-500/20">Status</th>
                                 <th className="px-6 py-4 border-b-2 border-dashed border-gray-500/20">Deployer</th>
                                 <th className="px-6 py-4 border-b-2 border-dashed border-gray-500/20">Network</th>
                                 <th className="px-6 py-4 border-b-2 border-dashed border-gray-500/20">Timestamp</th>
-
                                 <th className="px-6 py-4 border-b-2 border-dashed border-gray-500/20 text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-dashed divide-gray-500/10">
-                            {stats.explorer.map((item, i) => (
-                                <tr key={i} className={`group transition-all hover:bg-[#2d5bff]/5`}>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 bg-[#2d5bff]/10 border border-[#2d5bff]/20 flex items-center justify-center text-[#2d5bff]">
-                                                <Box size={14} />
+                            {stats.explorer
+                                .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+                                .map((item, i) => (
+                                    <tr key={i} className={`group transition-all hover:bg-[#2d5bff]/5`}>
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 bg-[#2d5bff]/10 border border-[#2d5bff]/20 flex items-center justify-center text-[#2d5bff]">
+                                                    <Box size={14} />
+                                                </div>
+                                                <span className="font-display font-black uppercase text-sm">{item.name}</span>
                                             </div>
-                                            <span className="font-display font-black uppercase text-sm">{item.name}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 font-mono text-xs opacity-60">
-                                        {formatWallet(item.deployer)}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className={`px-2 py-0.5 border text-[10px] font-bold uppercase ${item.network === 'mainnet' ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' :
-                                            'bg-blue-500/10 border-blue-500/20 text-blue-500'
-                                            }`}>
-                                            {item.network}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 font-mono text-[10px] opacity-60">
-                                        {item.date}
-                                    </td>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <div className="flex flex-col gap-1">
+                                                <div className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm border w-fit text-[9px] font-black uppercase ${item.status === 'success'
+                                                    ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500'
+                                                    : 'bg-rose-500/10 border-rose-500/20 text-rose-500'
+                                                    }`}>
+                                                    {item.status || 'success'}
+                                                </div>
+                                                {item.reason && item.status !== 'success' && (
+                                                    <span className="hidden text-[9px] font-mono opacity-50 truncate max-w-[150px]" title={item.reason}>
+                                                        {item.reason}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 font-mono text-xs opacity-60">
+                                            <button
+                                                onClick={() => onWalletClick?.(item.deployer)}
+                                                className="hover:text-[#2d5bff] transition-colors"
+                                            >
+                                                {formatWallet(item.deployer)}
+                                            </button>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className={`px-2 py-0.5 border text-[10px] font-bold uppercase ${item.network === 'mainnet' ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' :
+                                                'bg-blue-500/10 border-blue-500/20 text-blue-500'
+                                                }`}>
+                                                {item.network}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 font-mono text-[10px] opacity-60">
+                                            {item.date}
+                                        </td>
 
-                                    <td className="px-6 py-4 text-right">
-                                        <a
-                                            href={item.txId
-                                                ? `https://explorer.hiro.so/txid/${item.txId.startsWith('0x') ? item.txId : `0x${item.txId}`}?chain=${item.network}`
-                                                : `https://explorer.hiro.so/txid/${item.deployer}.${item.name}?chain=${item.network}`
-                                            }
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="p-2 border border-transparent hover:border-black dark:hover:border-white transition-all opacity-20 hover:opacity-100 inline-block"
-                                            title={item.txId ? "View Transaction on Hiro Explorer" : "View Contract on Hiro Explorer"}
-                                        >
-                                            <ExternalLink size={14} />
-                                        </a>
-                                    </td>
-                                </tr>
-                            ))}
+                                        <td className="px-6 py-4 text-right">
+                                            <a
+                                                href={item.txId
+                                                    ? `https://explorer.hiro.so/txid/${item.txId.startsWith('0x') ? item.txId : `0x${item.txId}`}?chain=${item.network}`
+                                                    : `https://explorer.hiro.so/txid/${item.deployer}.${item.name}?chain=${item.network}`
+                                                }
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="p-2 border border-transparent hover:border-black dark:hover:border-white transition-all opacity-20 hover:opacity-100 inline-block"
+                                                title={item.txId ? "View Transaction on Hiro Explorer" : "View Contract on Hiro Explorer"}
+                                            >
+                                                <ExternalLink size={14} />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                ))}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Table Pagination */}
+                <div className="px-6 py-4 border-t-2 border-dashed border-gray-500/10 flex items-center justify-between">
+                    <div className="font-mono text-[10px] opacity-40 uppercase">
+                        Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, stats.explorer.length)} of {stats.explorer.length}
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <button
+                            disabled={currentPage === 1}
+                            onClick={() => setCurrentPage(prev => prev - 1)}
+                            className="p-1 px-3 border-2 border-black/10 dark:border-white/10 font-mono text-[10px] uppercase font-bold disabled:opacity-20 hover:bg-[#2d5bff] hover:text-white transition-all"
+                        >
+                            PREV
+                        </button>
+                        <div className="flex gap-1">
+                            {[...Array(Math.ceil(stats.explorer.length / itemsPerPage))].map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setCurrentPage(idx + 1)}
+                                    className={`w-6 h-6 border-2 font-mono text-[10px] flex items-center justify-center transition-all ${currentPage === idx + 1
+                                        ? 'bg-[#2d5bff] border-[#2d5bff] text-white'
+                                        : 'border-black/10 dark:border-white/10 hover:border-[#2d5bff]/50'
+                                        }`}
+                                >
+                                    {idx + 1}
+                                </button>
+                            ))}
+                        </div>
+                        <button
+                            disabled={currentPage >= Math.ceil(stats.explorer.length / itemsPerPage)}
+                            onClick={() => setCurrentPage(prev => prev + 1)}
+                            className="p-1 px-3 border-2 border-black/10 dark:border-white/10 font-mono text-[10px] uppercase font-bold disabled:opacity-20 hover:bg-[#2d5bff] hover:text-white transition-all"
+                        >
+                            NEXT
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -612,8 +712,9 @@ export const StatisticsView: React.FC<{ theme: 'light' | 'dark' }> = ({ theme })
 };
 
 const StatCard: React.FC<{ title: string; value: string; trend: number | string; icon: any; isDark: boolean }> = ({ title, value, trend, icon, isDark }) => {
-    const isPositive = typeof trend === 'number' ? trend >= 0 : !trend.startsWith('-');
-    const hasTrend = trend !== 0 && trend !== '0' && trend !== '0%';
+    const isPositive = typeof trend === 'number' ? trend > 0 : !trend.startsWith('-') && trend !== '0' && trend !== '0%';
+    const isNegative = typeof trend === 'number' ? trend < 0 : trend.startsWith('-');
+    const hasTrend = trend !== 0 && trend !== '0' && trend !== '0%' && trend !== 0.0;
 
     return (
         <div className={`p-6 border-2 shadow-neo transition-all hover:-translate-y-1 group ${isDark ? 'bg-[#111] border-gray-800' : 'bg-white border-black'}`}>
