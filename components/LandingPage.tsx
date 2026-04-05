@@ -5,10 +5,12 @@ import {
    Ghost, ArrowRight, Box, RefreshCcw, Wallet, Activity,
    Zap, CheckCircle, Terminal, Cpu, Globe, Shield, Code2,
    Copy, Check, Play, Database, Server, Bot, FolderTree, Rocket,
-   Github, Twitter, ExternalLink, FileText, BookOpen, Calendar, MapPin,
+   Github, Twitter, Linkedin, ExternalLink, FileText, BookOpen, Calendar, MapPin,
    Sun, Moon,
    X, CheckCircle2, Circle, DollarSign, Target, ListChecks, History,
-   LineChart, PieChart, Activity as ActivityIcon
+   LineChart, PieChart, Activity as ActivityIcon,
+   Verified,
+   Plus, Minus
 } from 'lucide-react';
 import { StatisticsView } from './StatisticsView';
 import { TemplatesView } from './TemplatesView';
@@ -346,19 +348,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
    useEffect(() => {
       const path = location.pathname;
       if (path === '/') {
-          setCurrentView('landing');
+         setCurrentView('landing');
       } else if (path === '/roadmap') {
-          setCurrentView('roadmap');
+         setCurrentView('roadmap');
       } else if (path === '/statistics') {
-          setCurrentView('statistics');
+         setCurrentView('statistics');
       } else if (path === '/statistics/templates') {
-          setCurrentView('templates');
+         setCurrentView('templates');
       } else if (path.startsWith('/statistics/')) {
-          const wallet = path.split('/')[2];
-          if (wallet && wallet !== 'templates') {
-              setSelectedWallet(wallet);
-              setCurrentView('walletDetail');
-          }
+         const wallet = path.split('/')[2];
+         if (wallet && wallet !== 'templates') {
+            setSelectedWallet(wallet);
+            setCurrentView('walletDetail');
+         }
       }
    }, [location]);
 
@@ -539,7 +541,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Twitter /></a>
 
                <button onClick={toggleTheme} className="p-2 rounded-lg transition-colors">{isDark ? <Sun size={20} /> : <Moon size={20} />}</button>
-               <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app', '_blank', 'noopener,noreferrer')}>Get Started</NeoButton>
+               <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')}>Get Started</NeoButton>
             </div>
          </header>
 
@@ -547,13 +549,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
             {currentView === 'roadmap' ? (
                <RoadmapView />
             ) : currentView === 'statistics' ? (
-               <StatisticsView 
-                  theme={theme} 
+               <StatisticsView
+                  theme={theme}
                   onViewChange={(view: any) => {
-                      if (view === 'templates') navigate('/statistics/templates');
-                      else navigate('/statistics');
-                  }} 
-                  onWalletClick={(wallet: string) => navigate(`/statistics/${wallet}`)} 
+                     if (view === 'templates') navigate('/statistics/templates');
+                     else navigate('/statistics');
+                  }}
+                  onWalletClick={(wallet: string) => navigate(`/statistics/${wallet}`)}
                />
             ) : currentView === 'templates' ? (
                <TemplatesView theme={theme} onBack={() => navigate('/statistics')} />
@@ -576,7 +578,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                            {/* Added explicit Early Access link in Hero */}
                            <div className="flex flex-col items-center gap-6">
                               <div className="flex justify-center gap-4">
-                                 <button onClick={() => window.open('https://lab-stx-ide.vercel.app', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
+                                 <button onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
                                     Start building <ArrowRight size={18} />
                                  </button>
                               </div>
@@ -615,6 +617,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                   <SimulationScroll theme={isDark ? `dark` : `light`} />
 
                   {/* --- FEATURES SECTION --- */}
+
+
                   {/* --- POWERFUL FEATURES --- */}
                   <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-black' : 'bg-white'}`}>
                      <div className="max-w-7xl mx-auto">
@@ -653,7 +657,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               <NeoButton
                                  variant="primary"
                                  theme={theme}
-                                 onClick={() => window.open('https://lab-stx-ide.vercel.app?template_id=hello-world', '_blank')}
+                                 onClick={() => window.open('https://ide.labstx.online/?template_id=hello-world', '_blank')}
                                  className="w-full justify-center gap-2"
                               >
                                  <Rocket size={18} />
@@ -672,7 +676,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               <NeoButton
                                  variant="primary"
                                  theme={theme}
-                                 onClick={() => window.open('https://lab-stx-ide.vercel.app/?template_id=fungible-token', '_blank')}
+                                 onClick={() => window.open('https://ide.labstx.online//?template_id=fungible-token', '_blank')}
                                  className="w-full justify-center gap-2"
                               >
                                  <Rocket size={18} />
@@ -726,7 +730,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                            <div className="absolute top-0 right-0 p-2 text-[10px] uppercase tracking-widest">   <NeoButton
                               variant="primary"
                               theme={theme}
-                              onClick={() => window.open('https://lab-stx-ide.vercel.app/?template_id=counter', '_blank')}
+                              onClick={() => window.open('https://ide.labstx.online//?template_id=counter', '_blank')}
                               className="w-full justify-center gap-2"
                            >
                               <Rocket size={18} />
@@ -783,18 +787,78 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                      </div>
                   </section>
 
+                  {/* --- WHAT YOU CAN DO WITH LABSTX --- */}
+                  <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-[#0a0a0a]' : 'bg-gray-50'}`}>
+                     <div className="max-w-7xl mx-auto">
+                        <div className="mb-16 text-center">
+                           <h2 className={`text-5xl font-display font-black uppercase mb-4 ${isDark ? 'text-white' : 'text-black'}`}>What you can do with LabSTX</h2>
+                           <p className={`text-lg font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Everything you need to build on Stacks, directly in your browser.</p>
+                        </div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                           <ActionCard icon={<Terminal size={24} />} title="Write & Edit" desc="Full Monaco editor with Clarity syntax highlighting, auto-completion, and real-time linting." theme={theme} />
+                           <ActionCard icon={<RefreshCcw size={24} />} title="Test & Simulate" desc="Run local unittests, simulate transactions, and inspect state changes interactively." theme={theme} />
+                           <ActionCard icon={<Rocket size={24} />} title="Deploy Contracts" desc="Deploy seamlessly to testnet and mainnet with integrated wallet providers (Leather, Xverse)." theme={theme} />
+                           <ActionCard icon={<Bot size={24} />} title="AI Assistance" desc="Let LabSTX AI explain complex Clarity traits, generate snippets, and find post-condition errors." theme={theme} />
+                        </div>
+                     </div>
+                  </section>
+
+                  {/* --- TESTIMONIALS --- */}
+                  <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-black' : 'bg-white'}`}>
+                     <div className="max-w-7xl mx-auto">
+                        <div className="mb-16 text-center">
+                           <h2 className={`text-5xl font-display font-black uppercase mb-4 ${isDark ? 'text-white' : 'text-black'}`}>Developer Feedback</h2>
+                           <p className={`text-lg font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>See what the Stacks community is saying about LabSTX.</p>
+                        </div>
+                        <div className="grid md:grid-cols-3 gap-8">
+                           <TestimonialCard
+                              quote="LabSTX supports full Clarinet.toml project structure — contracts, tests, settings — directly in browser. That's not a playground. That's a production-grade environment. The barrier to writing Clarity just dropped by an afternoon of local config headaches."
+                              author="DeOrganizedBTC"
+                              role="DeOrganized Media provides coverage of events and projects developing in the #Bitcoin and #Stacks ecosystem. @PeaceLoveMusicG"
+                              platform="twitter"
+                              link="https://x.com/DeOrganizedBTC/status/2040037076410798559?s=20"
+                              avatarUrl="https://pbs.twimg.com/profile_images/1876023915136372736/TQtCItAC_400x400.jpg"
+                              theme={theme}
+                              isVerified={true}
+                           />
+                           <TestimonialCard
+                              quote="The integrated AI debugger saved me hours. It immediately spotted an edge case in my post-conditions that I had overlooked."
+                              author="Ayomikun Faluyi"
+                              role="Web3 Engineer"
+                              platform="twitter"
+                              link="https://x.com/AyomikunFaluyi"
+                              avatarUrl="https://pbs.twimg.com/profile_images/1991304396202704896/8E1nr34O_400x400.jpg"
+                              theme={theme}
+                           />
+                           <TestimonialCard
+                              quote="LabSTX makes onboarding new developers to Clarity so much easier. No need to install Clarinet or deal with environment setups."
+                              author="Algorithm.btc"
+                              role="Protocol Lead"
+                              platform="twitter"
+                              link="https://x.com/AlgorithmBTC"
+                              avatarUrl="https://pbs.twimg.com/profile_images/1618540494564347904/jaITa_YL_400x400.jpg"
+                              theme={theme}
+                           />
+                        </div>
+                     </div>
+                  </section>
+
                   {/* --- GETTING STARTED --- */}
                   <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#f3f4f6]'}`}>
                      <div className="max-w-7xl mx-auto text-center">
                         <h2 className="text-5xl font-display font-black uppercase mb-12">Start Building on Stacks</h2>
                         <div className="grid md:grid-cols-3 gap-8 mb-12">
-                           <a href="https://lab-stx-ide.vercel.app" className="block group transition-transform hover:-translate-y-1"><StepCard number="1" title="Launch IDE" desc="Open LabSTX and select your workspace." theme={theme} /></a>
+                           <a href="https://ide.labstx.online/" className="block group transition-transform hover:-translate-y-1"><StepCard number="1" title="Launch IDE" desc="Open LabSTX and select your workspace." theme={theme} /></a>
                            <a href="https://docs.stacks.co/docs/clarity" target="_blank" rel="noopener noreferrer" className="block group transition-transform hover:-translate-y-1"><StepCard number="2" title="Code Clarity" desc="Use our templates to write your contract." theme={theme} /></a>
                            <a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="block group transition-transform hover:-translate-y-1"><StepCard number="3" title="Deploy" desc="Broadcast your contract to the Stacks Blockchain." theme={theme} /></a>
                         </div>
-                        <NeoButton variant="primary" className="!text-lg !px-12 !py-5" theme={theme} onClick={() => window.open('https://lab-stx-ide.vercel.app', '_blank', 'noopener,noreferrer')}>Launch LabSTX IDE</NeoButton>
+                        <NeoButton variant="primary" className="!text-lg !px-12 !py-5" theme={theme} onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')}>Launch LabSTX IDE</NeoButton>
                      </div>
                   </section>
+
+
+                  {/* FAQ */}
+                  <FAQSection isDark={isDark} />
 
                   {/* --- FOOTER --- */}
                   <footer className={`py-16 px-6 border-t-4 border-[#2d5bff] bg-black text-white`}>
@@ -814,9 +878,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                            <div>
                               <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Product</h3>
                               <ul className="text-sm font-mono space-y-4">
-                                 <li><a href="https://lab-stx-ide.vercel.app" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Launch IDE <ArrowRight size={14} /></a></li>
+                                 <li><a href="https://ide.labstx.online/" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Launch IDE <ArrowRight size={14} /></a></li>
                                  <li><a href="https://github.com/LabSTX" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Contract Templates</a></li>
-                                 <li><a href="https://lab-stx-ide.vercel.app" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">AI Debugger</a></li>
+                                 <li><a href="https://ide.labstx.online/" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">AI Debugger</a></li>
                                  <li><a href="https://github.com/LabSTX" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Open Source</a></li>
                               </ul>
                            </div>
@@ -841,6 +905,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               </ul>
                            </div>
                         </div>
+
+
 
                         {/* Bottom Footer */}
                         <div className="pt-8 border-t border-gray-900 flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-mono">
@@ -923,5 +989,136 @@ const StepCard = ({ number, title, desc, theme }: { number: string, title: strin
          <p className={`text-sm font-mono leading-relaxed transition-colors ${isDark ? 'text-gray-400' : 'text-gray-600'
             }`}>{desc}</p>
       </div>
+   );
+};
+
+const TestimonialCard = ({ quote, author, role, platform, link, avatarUrl, theme, isVerified }: { quote: string, author: string, role: string, platform?: string, link?: string, avatarUrl?: string, theme: 'light' | 'dark', isVerified?: boolean }) => {
+   const isDark = theme === 'dark';
+
+   const renderPlatformIcon = () => {
+      if (!platform) return null;
+      switch (platform.toLowerCase()) {
+         case 'twitter':
+         case 'x':
+            return <Twitter size={16} />;
+         case 'linkedin':
+            return <Linkedin size={16} />;
+         case 'github':
+            return <Github size={16} />;
+         default:
+            return <ExternalLink size={16} />;
+      }
+   };
+
+   return (
+      <div className={`relative p-8 border-2 hover:shadow-neo transition-all flex flex-col justify-between ${isDark
+         ? 'bg-[#111111] border-gray-700'
+         : 'bg-white border-[#1a1a1a]'
+         }`}>
+
+         {link && (
+            <a href={link} target="_blank" rel="noopener noreferrer" className={`absolute top-6 right-6 p-2 border transition-colors ${isDark ? 'border-gray-700 hover:border-[#2d5bff] text-gray-500 hover:text-[#2d5bff]' : 'border-gray-200 hover:border-[#2d5bff] text-gray-400 hover:text-[#2d5bff]'}`}>
+               {renderPlatformIcon()}
+            </a>
+         )}
+
+         <div className="mb-6 mt-2">
+            <div className="text-[#2d5bff] font-serif text-4xl mb-4">"</div>
+            <p className={`text-md font-mono leading-relaxed italic ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{quote}</p>
+         </div>
+         <div className="flex items-center gap-4">
+            {avatarUrl && (
+               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#2d5bff]/20 bg-gray-100 flex-shrink-0">
+                  <img src={avatarUrl} alt={author} className="w-full h-full object-cover" />
+               </div>
+            )}
+            <div>
+               <h4 className={`flex items-center gap-2 font-display font-bold uppercase text-lg ${isDark ? 'text-white' : 'text-black'}`}>{author} {isVerified && <Verified fill='blue' className='text-white' size={16} />}</h4>
+               <p className={`text-xs font-mono mt-1 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>{role}</p>
+            </div>
+         </div>
+      </div>
+   );
+};
+
+const ActionCard = ({ icon, title, desc, theme }: { icon: React.ReactNode, title: string, desc: React.ReactNode, theme: 'light' | 'dark' }) => {
+   const isDark = theme === 'dark';
+   return (
+      <div className={`p-6 border-2 hover:-translate-y-1 hover:shadow-neo transition-all ${isDark
+         ? 'bg-black border-gray-700'
+         : 'bg-white border-black'
+         }`}>
+         <div className="w-12 h-12 bg-[#2d5bff]/10 text-[#2d5bff] flex items-center justify-center mb-6">
+            {icon}
+         </div>
+         <h3 className={`font-display font-black text-lg uppercase mb-3 ${isDark ? 'text-white' : 'text-black'}`}>{title}</h3>
+         <p className={`text-sm font-mono leading-relaxed opacity-70 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{desc}</p>
+      </div>
+   );
+};
+
+
+// --- NEW: FAQ Component ---
+const FAQItem = ({ question, answer, isDark }: { question: string, answer: string, isDark: boolean }) => {
+   const [isOpen, setIsOpen] = useState(false);
+
+   return (
+      <div className={`border-2 mb-4 transition-all ${isOpen ? 'shadow-neo-black' : ''
+         } ${isDark ? 'border-gray-800 bg-[#111111]' : 'border-black bg-white'}`}>
+         <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-full flex items-center justify-between p-6 text-left"
+         >
+            <span className="text-xl font-display font-black uppercase tracking-tight">{question}</span>
+            <div className={`p-2 border-2 transition-colors ${isDark ? 'border-gray-700' : 'border-black'} ${isOpen ? 'bg-[#3b82f6] text-white' : ''}`}>
+               {isOpen ? <X size={20} /> : <Plus size={20} />}
+            </div>
+         </button>
+         {isOpen && (
+            <div className="px-6 pb-6 animate-fade-in">
+               <div className={`h-[2px] w-12 mb-4 ${isDark ? 'bg-gray-800' : 'bg-black'}`} />
+               <p className={`font-mono text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {answer}
+               </p>
+            </div>
+         )}
+      </div>
+   );
+};
+
+const FAQSection = ({ isDark }: { isDark: boolean }) => {
+   const faqs = [
+      {
+         question: "What is LabSTX?",
+         answer: "LabSTX is a high-performance, browser-based IDE specifically designed for Clarity smart contract development on the Stacks blockchain. It provides a full workspace environment without any local installation."
+      },
+      {
+         question: "Do I need to install anything?",
+         answer: "No. LabSTX runs entirely in your browser. You get an industrial-grade editor, syntax highlighting, and a terminal environment immediately upon launching the app."
+      },
+      {
+         question: "Which wallets are supported?",
+         answer: "We currently support Leather and Xverse wallets for direct contract deployment to both Stacks Testnet and Mainnet."
+      },
+      {
+         question: "Is LabSTX free to use?",
+         answer: "The core IDE features—writing, analyzing, and checking Clarity contracts—are completely free. We focus on providing the best developer experience for the Stacks ecosystem."
+      }
+   ];
+
+   return (
+      <section className="max-w-4xl mx-auto py-24 px-6">
+         <div className="mb-16">
+            <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tighter mb-4">
+               Common <span className="text-[#3b82f6]">Questions</span>
+            </h2>
+            <p className="font-mono opacity-60 italic">Everything you need to know about the environment.</p>
+         </div>
+         <div className="grid gap-2">
+            {faqs.map((faq, index) => (
+               <FAQItem key={index} {...faq} isDark={isDark} />
+            ))}
+         </div>
+      </section>
    );
 };
