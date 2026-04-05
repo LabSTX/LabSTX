@@ -527,7 +527,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
             <div className="flex items-center gap-6">
                <button
                   onClick={() => navigate('/roadmap')}
-                  className={`font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'roadmap' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+                  className={`hidden font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'roadmap' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
                >
                   Roadmap
                </button>
@@ -628,11 +628,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                         </div>
                         <div className="grid md:grid-cols-3 gap-8">
                            <FeatureCard icon={<Code2 size={32} />} title="Clarity Editor" desc={<span>High-performance <a href="https://microsoft.github.io/monaco-editor/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Monaco editor</a> with real-time syntax highlighting for <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarity</a> smart contracts.</span>} theme={theme} />
-                           <FeatureCard icon={<Cpu size={32} />} title="Static Analysis" desc={<span>Integrated <a href="https://docs.stacks.co/docs/clarity/language-overview#clarity-check" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">check command</a> to catch post-condition errors and estimate execution costs before deployment.</span>} theme={theme} />
-                           <FeatureCard icon={<Bot size={32} />} title="AI Debugger" desc={<span>LabSTX AI (powered by <a href="https://deepmind.google/technologies/gemini/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Gemini</a>) helps optimize your Clarity logic and explain contract traits.</span>} theme={theme} />
+                           <FeatureCard icon={<Cpu size={32} />} title="Free Templates" desc={<span> A collection of free templates for Stacks smart contracts + Intergrated <a href="https://github.com/orgs/hirosystems/repositories?q=template%3Atrue+archived%3Afalse" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Hiro Templates on github</a> dynamically with easy project scaffolding  </span>} theme={theme} />
+                           <FeatureCard icon={<Bot size={32} />} title="AI Debugger" desc={<span>LabSTX AI (powered by <a href="https://openrouter.ai" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Openrouter Models</a>) helps optimize your Clarity logic and explain contract traits.</span>} theme={theme} />
                            <FeatureCard icon={<Wallet size={32} />} title="Stacks Wallets" desc={<span>Full integration with <a href="https://leather.io/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Leather</a> and <a href="https://xverse.app/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Xverse</a>. Manage STX balances and <a href="https://github.com/stacksgov/sips/blob/main/sips/sip-010/sip-010-fungible-token-standard.md" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">SIP-010</a> tokens natively.</span>} theme={theme} />
                            <FeatureCard icon={<FolderTree size={32} />} title="Project Scaffolding" desc={<span>Manage multiple contract files and complex Stacks projects with a virtual file system and <a href="https://github.com/hirosystems/clarinet" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarinet</a>-style logic.</span>} theme={theme} />
-                           <FeatureCard icon={<Rocket size={32} />} title="Seamless Deploy" desc={<span>One-click deployment to Stacks Mainnet or Testnet with real-time <a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">explorer</a> tracking.</span>} theme={theme} />
+                           <FeatureCard icon={<Rocket size={32} />} title="Seamless Deploy" desc={<span>One-click deployment to Stacks Mainnet or Testnet and Simnet with real-time <a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">explorer</a> tracking.</span>} theme={theme} />
                         </div>
                      </div>
                   </section>
@@ -657,11 +657,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               <NeoButton
                                  variant="primary"
                                  theme={theme}
-                                 onClick={() => window.open('https://ide.labstx.online/?template_id=hello-world', '_blank')}
+                                 onClick={() => window.open('https://ide.labstx.online?template_id=hello-world', '_blank')}
                                  className="w-full justify-center gap-2"
                               >
                                  <Rocket size={18} />
-                                 Open Template
+                                 Open Template in IDE
                               </NeoButton>
                            </div>
 
@@ -672,15 +672,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                                  </div>
                                  <h3 className="text-2xl font-display font-black uppercase">Fungible Token</h3>
                               </div>
-                              <p className="font-mono text-sm mb-8 opacity-70">Start with a basic fungible token implementation (SIP-010-like)</p>
+                              <p className="font-mono text-sm mb-8 opacity-70">Start with a basic fungible token implementation <br /> (SIP-010-like)</p>
                               <NeoButton
                                  variant="primary"
                                  theme={theme}
-                                 onClick={() => window.open('https://ide.labstx.online//?template_id=fungible-token', '_blank')}
+                                 onClick={() => window.open('https://ide.labstx.online?template_id=fungible-token', '_blank')}
                                  className="w-full justify-center gap-2"
                               >
                                  <Rocket size={18} />
-                                 Open Template
+                                 Open Template in IDE
                               </NeoButton>
                            </div>
                         </div>
@@ -822,23 +822,34 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               isVerified={true}
                            />
                            <TestimonialCard
-                              quote="The integrated AI debugger saved me hours. It immediately spotted an edge case in my post-conditions that I had overlooked."
+                              quote="I never thought writing Clarity smart contracts directly in the browser could be this seamless. Huge kudos to the LabSTX team for making it a reality!"
                               author="Ayomikun Faluyi"
-                              role="Web3 Engineer"
+                              role="Computer Engineer and software developer"
                               platform="twitter"
                               link="https://x.com/AyomikunFaluyi"
                               avatarUrl="https://pbs.twimg.com/profile_images/1991304396202704896/8E1nr34O_400x400.jpg"
                               theme={theme}
                            />
                            <TestimonialCard
-                              quote="LabSTX makes onboarding new developers to Clarity so much easier. No need to install Clarinet or deal with environment setups."
-                              author="Algorithm.btc"
-                              role="Protocol Lead"
-                              platform="twitter"
-                              link="https://x.com/AlgorithmBTC"
-                              avatarUrl="https://pbs.twimg.com/profile_images/1618540494564347904/jaITa_YL_400x400.jpg"
+                              quote="This is reallly coool. Love it!!!"
+                              author="Ebenezer Akinseinde"
+                              role="Software Engineer | Python | React | Node.js | AI/ML | Clarity"
+                              platform="skool"
+                              link="https://www.skool.com/stackers/i-built-a-browser-based-smart-contract-ide-for-stacks?p=691c2286"
+                              avatarUrl="https://assets.skool.com/f/d61828b460d54f9c8c7cd91bb48b6bd1/7354eec79a384d119463538e1126df642d71541dd173487c8a4451b56cfd21d6.jpg"
                               theme={theme}
                            />
+                           <TestimonialCard
+                              quote="Just Exploring @Stackslaborg, LabSTX is a game changer for Clarity developers , have this type of tool  for @Stacks will really reduce the stress of local environment installation and friction of new developers entering the @StacksDevs ecosystem"
+                              author="Oyewale Prudence"
+                              role="Software engineer || Senior developer || Blockchain developer"
+                              platform="twitter"
+                              link="https://x.com/oyewaleprudence/status/2026635916433846702?s=20"
+                              avatarUrl="https://pbs.twimg.com/profile_images/2035793157158559744/M87hsZyi_400x400.jpg"
+                              theme={theme}
+                           />
+
+
                         </div>
                      </div>
                   </section>
@@ -879,7 +890,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Product</h3>
                               <ul className="text-sm font-mono space-y-4">
                                  <li><a href="https://ide.labstx.online/" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Launch IDE <ArrowRight size={14} /></a></li>
-                                 <li><a href="https://github.com/LabSTX" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Contract Templates</a></li>
+                                 <li><a href="https://github.com/LabSTX/LabSTX-Workshops" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">LabSTX Contract Workshop</a></li>
                                  <li><a href="https://ide.labstx.online/" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">AI Debugger</a></li>
                                  <li><a href="https://github.com/LabSTX" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Open Source</a></li>
                               </ul>
@@ -889,9 +900,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Ecosystem</h3>
                               <ul className="text-sm font-mono space-y-4">
                                  <li><a href="https://docs.stacks.co/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Stacks Docs <ExternalLink size={14} /></a></li>
-                                 <li><a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Clarity Language</a></li>
+                                 <li><a href="https://docs.stacks.co/learn/clarity" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Clarity Language</a></li>
                                  <li><a href="https://explorer.hiro.so/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all flex items-center gap-2">Hiro Explorer <ExternalLink size={14} /></a></li>
-                                 <li><a href="https://www.stacks.co/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Stacks Foundation</a></li>
+                                 <li><a href="https://stacks.foundation/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Stacks Foundation</a></li>
                               </ul>
                            </div>
 
@@ -899,9 +910,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Community</h3>
                               <ul className="text-sm font-mono space-y-4">
                                  <li><a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Twitter / X</a></li>
-                                 <li><a href="https://discord.com/invite/stacks" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Discord</a></li>
+                                 <li><a href="https://discord.com/invite/xpTRKeBDA3" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Discord</a></li>
                                  <li><a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">GitHub</a></li>
-                                 <li><a href="mailto:hello@labstx.io" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Contact Us</a></li>
+
                               </ul>
                            </div>
                         </div>
@@ -920,7 +931,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                            <div className="flex gap-6">
                               <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><Github size={20} /></a>
                               <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><Twitter size={20} /></a>
-                              <a href="https://discord.com/invite/stacks" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><ExternalLink size={20} /></a>
+                              <a href="https://discord.com/invite/xpTRKeBDA3" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><ExternalLink size={20} /></a>
                            </div>
                         </div>
                      </div>
