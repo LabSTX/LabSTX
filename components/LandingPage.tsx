@@ -516,33 +516,38 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
             <div
                className="flex items-center gap-2 font-mono leading-relaxed font-black cursor-pointer group"
                onClick={() => navigate('/')}
+               role="button"
+               tabIndex={0}
+               aria-label="Navigate to LabSTX homepage"
             >
                <img
                   src={isDark ? `/lab_stx.png` : `/lab_stx_whitee.png`}
-                  alt="LabSTX"
+                  alt="LabSTX Logo - Clarity Smart Contract IDE"
                   className={isDark ? `w-5 group-hover:rotate-12 transition-transform` : `w-7 group-hover:rotate-12 transition-transform`}
                />
                <span className="font-black text-xl tracking-tighter">LabSTX</span>
             </div>
-            <div className="flex items-center gap-6">
+            <nav className="flex items-center gap-6" aria-label="Main navigation">
                <button
                   onClick={() => navigate('/roadmap')}
                   className={`hidden font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'roadmap' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+                  aria-label="View LabSTX development roadmap"
                >
                   Roadmap
                </button>
                <button
                   onClick={() => navigate('/statistics')}
                   className={`font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'statistics' || currentView === 'templates' || currentView === 'walletDetail' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+                  aria-label="View LabSTX usage statistics"
                >
                   Statistics
                </button>
-               <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Github /></a>
-               <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`}><Twitter /></a>
+               <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`} aria-label="Visit LabSTX GitHub repository"><Github aria-hidden="true" /></a>
+               <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`} aria-label="Follow LabSTX on Twitter/X"><Twitter aria-hidden="true" /></a>
 
-               <button onClick={toggleTheme} className="p-2 rounded-lg transition-colors">{isDark ? <Sun size={20} /> : <Moon size={20} />}</button>
-               <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')}>Get Started</NeoButton>
-            </div>
+               <button onClick={toggleTheme} className="p-2 rounded-lg transition-colors" aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}>{isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}</button>
+               <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')} aria-label="Launch LabSTX IDE">Get Started</NeoButton>
+            </nav>
          </header>
 
          <main className="flex-1">
@@ -572,14 +577,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                         </h1>
                         <div className="max-w-2xl mx-auto space-y-8">
                            <p className={`text-xl font-medium font-mono ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                              Write, compile, deploy, and test <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Clarity</a> smart contracts on <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline">Stacks</a>. No local setup required.
+                              Write, compile, deploy, and test <a href="https://clarity-lang.org/" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline" aria-label="Learn more about Clarity programming language">Clarity</a> smart contracts on <a href="https://stacks.co" target="_blank" rel="noopener noreferrer" className="text-[#2d5bff] hover:underline" aria-label="Visit Stacks blockchain website">Stacks</a>. No local setup required.
                            </p>
 
                            {/* Added explicit Early Access link in Hero */}
                            <div className="flex flex-col items-center gap-6">
                               <div className="flex justify-center gap-4">
-                                 <button onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all">
-                                    Start building <ArrowRight size={18} />
+                                 <button onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')} className="bg-[#D1D1CB] hover:bg-[#BDBDB5] text-black font-bold py-5 px-12 rounded-sm text-sm flex items-center gap-2 uppercase tracking-widest transition-all" aria-label="Launch LabSTX IDE in new tab">
+                                    Start building <ArrowRight size={18} aria-hidden="true" />
                                  </button>
                               </div>
                               <div className="flex flex-col items-center gap-2">
@@ -591,6 +596,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className={`text-sm font-mono font-bold uppercase tracking-tighter border-b-2 border-[#2d5bff] pb-1 hover:font-bold transition-all`}
+                                    aria-label="Join LabSTX Early Access Program"
                                  >
                                     Join Early Access →
                                  </a>

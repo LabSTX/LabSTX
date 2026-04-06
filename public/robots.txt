@@ -1,0 +1,21 @@
+# robots.txt for LabSTX
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemaps
+Sitemap: https://labstx.online/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 0
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
