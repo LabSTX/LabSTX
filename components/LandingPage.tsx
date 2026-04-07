@@ -512,7 +512,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
         `}</style>
 
 
-         <p className=" flex gap-2 items-center justify-center bg-blue-800 py-1 text-white"> LabSTX Version 1.2.1 is Live <a href="https://github.com/LabSTX/LabSTX_IDE/releases/tag/v1.2.1" target="_blank" rel="noopener noreferrer" className="text-white underline ">Read more</a></p>
+         <p className=" flex gap-2 items-center justify-center bg-blue-800 py-1 text-white font-mono"> LabSTX Version 1.2.1 is Live <a href="https://github.com/LabSTX/LabSTX_IDE/releases/tag/v1.2.1" target="_blank" rel="noopener noreferrer" className="text-white underline font-bold">Read more</a></p>
 
          <header className={`h-20 shadow bg-backdrop-blur flex items-center justify-between px-6 sticky top-0 z-50 transition-colors duration-300 ${isDark ? 'bg-black' : 'bg-white'
             }`}>
