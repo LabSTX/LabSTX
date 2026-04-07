@@ -116,7 +116,7 @@ export const TemplatesView: React.FC<TemplatesViewProps> = ({ theme, onBack }) =
                             <NeoButton
                                 variant="primary"
                                 className="w-full justify-center gap-2 py-4"
-                                onClick={() => window.open(`https://lab-stx-ide.vercel.app?template_id=${template.id}`, '_blank')}
+                                onClick={() => window.open(`https://ide.labstx.online?template_id=${template.id}`, '_blank')}
                             >
                                 <Rocket size={16} />
                                 START BUILDING

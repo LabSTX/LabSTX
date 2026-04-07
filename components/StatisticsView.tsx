@@ -22,7 +22,8 @@ import {
     Award,
     RotateCw,
     Play,
-    Pause
+    Pause,
+    RefreshCw
 } from 'lucide-react';
 import {
     ResponsiveContainer,
@@ -185,7 +186,7 @@ export const StatisticsView: React.FC<{
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="animate-pulse flex flex-col items-center gap-4">
                     <div className="w-12 h-12 bg-[#2d5bff]/20 rounded-full flex items-center justify-center">
-                        <Activity className="text-[#2d5bff] animate-spin" />
+                        <RefreshCw className="text-[#2d5bff] animate-spin" />
                     </div>
                     <span className="font-mono text-sm uppercase tracking-widest opacity-50">Synchronizing Global Ledger...</span>
                 </div>

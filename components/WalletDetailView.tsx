@@ -13,7 +13,8 @@ import {
     TrendingUp,
     ShieldCheck,
     Cpu,
-    Bot
+    Bot,
+    RefreshCw
 } from 'lucide-react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
@@ -75,7 +76,7 @@ export const WalletDetailView: React.FC<WalletDetailViewProps> = ({ wallet, them
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
                 <div className="animate-pulse flex flex-col items-center gap-4">
-                    <Activity className="text-[#2d5bff] animate-spin" size={48} />
+                    <RefreshCw className="text-[#2d5bff] animate-spin" size={48} />
                     <span className="font-mono text-sm uppercase tracking-widest opacity-50">Indexing Wallet Data...</span>
                 </div>
             </div>
@@ -247,11 +248,11 @@ export const WalletDetailView: React.FC<WalletDetailViewProps> = ({ wallet, them
                 </div>
 
                 {/* Status List */}
-                <div className={`p-8 border-2 shadow-neo-black flex flex-col ${isDark ? 'bg-[#111] border-gray-800' : 'bg-white border-black'}`}>
+                <div className={`p-8 border-2 shadow-neo-black flex flex-col overflow-y-auto max-h-[500px] ${isDark ? 'bg-[#111] border-gray-800' : 'bg-white border-black'}`}>
                     <h3 className="text-2xl font-display font-black uppercase mb-6">Recent Work</h3>
                     <div className="space-y-4 flex-1 overflow-y-auto pr-2 custom-scrollbar">
                         {stats.recentDeployments.length > 0 ? stats.recentDeployments.map((d, i) => (
-                            <div key={i} className={`p-4 border-2 transition-all hover:border-[#2d5bff] ${isDark ? 'bg-black border-gray-900' : 'bg-gray-50 border-gray-200'}`}>
+                            <div key={i} className={`p-4 border-2 transition-all hover:border-[#2d5bff]  ${isDark ? 'bg-black border-gray-900' : 'bg-gray-50 border-gray-200'}`}>
                                 <div className="flex items-center justify-between mb-2">
                                     <span className="text-[10px] font-mono font-bold uppercase py-0.5 px-1.5 bg-[#2d5bff]/10 text-[#2d5bff] rounded-sm">
                                         {d.network}
