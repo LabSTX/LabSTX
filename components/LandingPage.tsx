@@ -849,7 +849,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               theme={theme}
                            />
                            <TestimonialCard
-                              quote="Just Exploring @Stackslaborg, LabSTX is a game changer for Clarity developers , have this type of tool  for @Stacks will really reduce the stress of local environment installation and friction of new developers entering the @StacksDevs ecosystem"
+                              quote="Just Exploring @labstxorg, LabSTX is a game changer for Clarity developers , have this type of tool  for @Stacks will really reduce the stress of local environment installation and friction of new developers entering the @StacksDevs ecosystem"
                               author="Oyewale Prudence"
                               role="Software engineer || Senior developer || Blockchain developer"
                               platform="twitter"
@@ -857,7 +857,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               avatarUrl="https://pbs.twimg.com/profile_images/2035793157158559744/M87hsZyi_400x400.jpg"
                               theme={theme}
                            />
-
+ <TestimonialCard
+                              quote="I've gone ahead and tried it out, thanks for building something awesome!"
+                              author="Mitchell Cuevas"
+                              role="Member at Stacks Foundation"
+                              platform="github"
+                              link="https://github.com/mitchellcuevas"
+                              avatarUrl="https://lh3.googleusercontent.com/a-/ALV-UjX25oYtcRw8TLAhynR8XzNmIvOAUkKEJSODaZAhbnSqKfFU_UCz=s40-p"
+                              theme={theme}
+                           />
 
                         </div>
                      </div>
