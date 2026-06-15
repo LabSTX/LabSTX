@@ -860,7 +860,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
  <TestimonialCard
                               quote="I've gone ahead and tried it out, thanks for building something awesome!"
                               author="Mitchell Cuevas"
-                              role="Member at Stacks Foundation"
+                              role="Stacks Foundation Board"
                               platform="github"
                               link="https://github.com/mitchellcuevas"
                               avatarUrl="https://lh3.googleusercontent.com/a-/ALV-UjX25oYtcRw8TLAhynR8XzNmIvOAUkKEJSODaZAhbnSqKfFU_UCz=s40-p"
