@@ -851,7 +851,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                            <TestimonialCard
                               quote="Just Exploring @labstxorg, LabSTX is a game changer for Clarity developers , have this type of tool  for @Stacks will really reduce the stress of local environment installation and friction of new developers entering the @StacksDevs ecosystem"
                               author="Oyewale Prudence"
-                              role="Software engineer || Senior developer || Blockchain developer"
+                              role="Lead developer || Founder of LabSTX"
                               platform="twitter"
                               link="https://x.com/oyewaleprudence/status/2026635916433846702?s=20"
                               avatarUrl="https://pbs.twimg.com/profile_images/2035793157158559744/M87hsZyi_400x400.jpg"
