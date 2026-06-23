@@ -816,7 +816,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                   <section className={`py-24 px-6 border-b-2 border-[#2d5bff] ${isDark ? 'bg-black' : 'bg-white'}`}>
                      <div className="max-w-7xl mx-auto">
                         <div className="mb-16 text-center">
-                           <h2 className={`text-5xl font-display font-black uppercase mb-4 ${isDark ? 'text-white' : 'text-black'}`}>Developer Feedback</h2>
+                           <h2 className={`text-5xl font-display font-black uppercase mb-4 ${isDark ? 'text-white' : 'text-black'}`}>Community Feedback</h2>
                            <p className={`text-lg font-mono ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>See what the Stacks community is saying about LabSTX.</p>
                         </div>
                         <div className="grid md:grid-cols-3 gap-8">
@@ -849,7 +849,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               theme={theme}
                            />
                            <TestimonialCard
-                              quote="Just Exploring @labstxorg, LabSTX is a game changer for Clarity developers , have this type of tool  for @Stacks will really reduce the stress of local environment installation and friction of new developers entering the @StacksDevs ecosystem"
+                              quote="LabSTX is a game changer for Clarity developers , have this type of tool  for @Stacks will really reduce the stress of local environment installation and friction of new developers entering the @StacksDevs ecosystem"
                               author="Oyewale Prudence"
                               role="Lead developer || Founder of LabSTX"
                               platform="twitter"
@@ -857,13 +857,25 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                               avatarUrl="https://pbs.twimg.com/profile_images/2035793157158559744/M87hsZyi_400x400.jpg"
                               theme={theme}
                            />
- <TestimonialCard
+                           <TestimonialCard
                               quote="I've gone ahead and tried it out, thanks for building something awesome!"
                               author="Mitchell Cuevas"
                               role="Stacks Foundation Board"
                               platform="github"
                               link="https://github.com/mitchellcuevas"
                               avatarUrl="https://lh3.googleusercontent.com/a-/ALV-UjX25oYtcRw8TLAhynR8XzNmIvOAUkKEJSODaZAhbnSqKfFU_UCz=s40-p"
+                              theme={theme}
+                           />
+
+                           <TestimonialCard
+                              quote="I’ve always been a fan of IDEs for smart contract learning. Integrating mini tutorial wizards that guide users through contract templates would be solid.
+The Hiro Platform already has a good base for contract templates and devnet hosting but lacks interactive wizards."
+                              author="Eric"
+                              isVerified={true}
+                              role="Stacks Forward Deployed DevRel"
+                              platform="twitter"
+                              link="https://x.com/ECBSJ/status/2069467791929864266?s=20"
+                              avatarUrl="https://pbs.twimg.com/profile_images/2004299570184876032/zX-OXwHx_400x400.jpg"
                               theme={theme}
                            />
 
