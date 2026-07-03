@@ -546,7 +546,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                   Statistics
                </button>
                <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`} aria-label="Visit LabSTX GitHub repository"><Github aria-hidden="true" /></a>
-               <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`} aria-label="Follow LabSTX on Twitter/X"><Twitter aria-hidden="true" /></a>
+               <a href="https://x.com/labstxorg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`} aria-label="Follow LabSTX on Twitter/X"><Twitter aria-hidden="true" /></a>
 
                <button onClick={toggleTheme} className="p-2 rounded-lg transition-colors" aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}>{isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}</button>
                <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')} aria-label="Launch LabSTX IDE">Get Started</NeoButton>
@@ -938,7 +938,7 @@ The Hiro Platform already has a good base for contract templates and devnet host
                            <div>
                               <h3 className="font-black uppercase text-[#2d5bff] mb-6 tracking-widest text-sm">Community</h3>
                               <ul className="text-sm font-mono space-y-4">
-                                 <li><a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Twitter / X</a></li>
+                                 <li><a href="https://x.com/labstxorg" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Twitter / X</a></li>
                                  <li><a href="https://discord.com/invite/xpTRKeBDA3" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">Discord</a></li>
                                  <li><a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-all">GitHub</a></li>
 
@@ -959,7 +959,7 @@ The Hiro Platform already has a good base for contract templates and devnet host
                            </div>
                            <div className="flex gap-6">
                               <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><Github size={20} /></a>
-                              <a href="https://x.com/Stackslaborg" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><Twitter size={20} /></a>
+                              <a href="https://x.com/labstxorg" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><Twitter size={20} /></a>
                               <a href="https://discord.com/invite/xpTRKeBDA3" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 hover:text-[#2d5bff] transition-transform hover:scale-110"><ExternalLink size={20} /></a>
                            </div>
                         </div>
