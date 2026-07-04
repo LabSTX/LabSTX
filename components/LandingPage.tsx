@@ -10,12 +10,17 @@ import {
    X, CheckCircle2, Circle, DollarSign, Target, ListChecks, History,
    LineChart, PieChart, Activity as ActivityIcon,
    Verified,
-   Plus, Minus
+   Plus, Minus,
+   ChartCandlestick,
+   HandHelping,
+   CodeXml
 } from 'lucide-react';
 import { StatisticsView } from './StatisticsView';
 import { TemplatesView } from './TemplatesView';
 import { WalletDetailView } from './WalletDetailView';
 import { useLocation, useNavigate, useParams, Link } from 'react-router-dom';
+import { connect, request } from '@stacks/connect';
+import { STACKS_MAINNET, STACKS_TESTNET } from '@stacks/network';
 
 interface LandingPageProps {
    onLaunch: () => void;
@@ -342,8 +347,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
    const navigate = useNavigate();
 
    // Sync currentView and selectedWallet with URL
-   const [currentView, setCurrentView] = useState<'landing' | 'roadmap' | 'statistics' | 'templates' | 'walletDetail'>('landing');
+   const [currentView, setCurrentView] = useState<'landing' | 'roadmap' | 'statistics' | 'templates' | 'walletDetail' | 'donate'>('landing');
    const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
+   const [showToolsPopover, setShowToolsPopover] = useState(false);
 
    useEffect(() => {
       const path = location.pathname;
@@ -355,6 +361,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
          setCurrentView('statistics');
       } else if (path === '/statistics/templates') {
          setCurrentView('templates');
+      } else if (path === '/donate') {
+         setCurrentView('donate');
       } else if (path.startsWith('/statistics/')) {
          const wallet = path.split('/')[2];
          if (wallet && wallet !== 'templates') {
@@ -363,6 +371,144 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
          }
       }
    }, [location]);
+
+   const DonateView = () => {
+      const [amount, setAmount] = useState<string>('');
+      const [isConnected, setIsConnected] = useState<boolean>(false);
+      const [lastDonation, setLastDonation] = useState<{ amount: number, txid: string } | null>(null);
+
+      const handleConnect = async () => {
+         try {
+            const response = await connect({
+               forceWalletSelect: true,
+               approvedProviderIds: ['LeatherProvider', 'XverseProviders.BitcoinProvider'],
+               network: 'mainnet',
+            });
+            if (response && response.addresses) {
+               setIsConnected(true);
+            }
+         } catch (e) {
+            console.error("Failed to connect wallet:", e);
+         }
+      };
+
+      const handleDisconnect = () => {
+         setIsConnected(false);
+         setLastDonation(null);
+      };
+
+      const handleDonate = async (val: number) => {
+         try {
+            const amountInMicroStx = BigInt(Math.floor(val * 1000000));
+            const result = await request(
+               'stx_transferStx',
+               {
+                  recipient: 'SP1WNVWY7WCJESTHM050RAMRRE44KJTKZKKX61P0V',
+                  amount: amountInMicroStx.toString(),
+                  memo: 'Donation to LabSTX',
+
+               }
+            );
+            console.log("Transaction ID:", result.txid);
+            setLastDonation({ amount: val, txid: result.txid });
+         } catch (e) {
+            console.error("Transaction failed:", e);
+         }
+      };
+
+      return (
+         <div className="max-w-4xl mx-auto py-24 px-6 animate-fade-in">
+            <div className="mb-20 text-center">
+               <h2 className="text-6xl md:text-8xl font-display font-black uppercase mb-6 tracking-tighter">Support Us</h2>
+               <p className="text-xl font-mono opacity-60">Help us build the most powerful Clarity environment on the web.</p>
+            </div>
+
+            <div className={`max-w-xl mx-auto p-8 border-2 shadow-neo-black transition-all ${isDark ? 'bg-[#111111] border-gray-800' : 'bg-white border-black'}`}>
+               <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-3xl font-display font-black uppercase text-center">Donate STX</h3>
+                  {isConnected && (
+                     <button
+                        onClick={handleDisconnect}
+                        className="text-xs font-mono font-bold text-red-500 hover:text-red-600 underline"
+                     >
+                        Disconnect
+                     </button>
+                  )}
+               </div>
+
+               {!isConnected ? (
+                  <div className="text-center py-8">
+                     <p className="font-mono mb-6 opacity-70">Please connect your Stacks wallet to initialize a donation transaction.</p>
+                     <NeoButton variant="primary" onClick={handleConnect}>
+                        Connect Wallet
+                     </NeoButton>
+                  </div>
+               ) : (
+                  <>
+                     <div className="grid grid-cols-3 gap-4 mb-8">
+                        {[20, 50, 100].map(val => (
+                           <button
+                              key={val}
+                              onClick={() => handleDonate(val)}
+                              className={`py-4 font-mono font-bold text-lg border-2 transition-all hover:bg-[#2d5bff] hover:text-white hover:border-[#2d5bff] ${isDark ? 'border-gray-700 bg-black' : 'border-black bg-gray-50'}`}
+                           >
+                              {val} STX
+                           </button>
+                        ))}
+                     </div>
+
+                     <div className="flex items-center gap-4 mb-8">
+                        <div className="flex-1 h-[2px] bg-gray-200 dark:bg-gray-800"></div>
+                        <span className="font-mono text-sm opacity-50 uppercase">or custom amount</span>
+                        <div className="flex-1 h-[2px] bg-gray-200 dark:bg-gray-800"></div>
+                     </div>
+
+                     <div className="flex gap-4">
+                        <input
+                           type="number"
+                           value={amount}
+                           onChange={(e) => setAmount(e.target.value)}
+                           placeholder="Enter STX amount"
+                           className={`flex-1 px-4 py-3 font-mono border-2 focus:outline-none focus:border-[#2d5bff] ${isDark ? 'bg-black border-gray-700' : 'bg-white border-black'}`}
+                        />
+                        <NeoButton
+                           variant="primary"
+                           onClick={() => {
+                              const val = parseFloat(amount);
+                              if (val > 0) handleDonate(val);
+                           }}
+                        >
+                           Donate
+                        </NeoButton>
+                     </div>
+
+                     {lastDonation && (
+                        <div className={`mt-8 p-4 border-2 border-green-500 bg-green-500/10 text-center animate-fade-in`}>
+                           <h4 className="font-bold font-mono text-green-500 mb-2">Donation Initialized!</h4>
+                           <p className="font-mono text-sm opacity-80 mb-1">Amount: {lastDonation.amount} STX</p>
+                           <p className="font-mono text-xs opacity-60 truncate">
+                              TxID:{' '}
+                              <a
+                                 href={`https://explorer.hiro.so/txid/${lastDonation.txid}?chain=mainnet`}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                                 className="text-[#2d5bff] hover:underline"
+                              >
+                                 {lastDonation.txid}
+                              </a>
+                           </p>
+                        </div>
+                     )}
+                  </>
+               )}
+            </div>
+
+            <div className="mt-20 text-center">
+               <NeoButton variant="primary" onClick={() => navigate('/')}>Back to Home</NeoButton>
+            </div>
+         </div>
+      );
+   };
 
    const RoadmapView = () => (
       <div className="max-w-4xl mx-auto py-24 px-6 animate-fade-in">
@@ -514,7 +660,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
 
          <p className=" flex gap-2 items-center justify-center bg-blue-800 py-1 text-white font-mono"> LabSTX Version 1.2.1 is Live <a href="https://github.com/LabSTX/LabSTX_IDE/releases/tag/v1.2.1" target="_blank" rel="noopener noreferrer" className="text-white underline font-bold">Read more</a></p>
 
-         <header className={`h-20 shadow bg-backdrop-blur flex items-center justify-between px-6 sticky top-0 z-50 transition-colors duration-300 ${isDark ? 'bg-black' : 'bg-white'
+         <header className={`h-20 w-full shadow bg-backdrop-blur flex items-center justify-between px-6 sticky top-0 z-50 transition-colors duration-300 ${isDark ? 'bg-black' : 'bg-white'
             }`}>
             <div
                className="flex items-center gap-2 font-mono leading-relaxed font-black cursor-pointer group"
@@ -531,31 +677,65 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                <span className="font-black text-xl tracking-tighter">LabSTX</span>
             </div>
             <nav className="flex items-center gap-6" aria-label="Main navigation">
-               <button
-                  onClick={() => navigate('/roadmap')}
-                  className={`hidden font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'roadmap' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
-                  aria-label="View LabSTX development roadmap"
-               >
-                  Roadmap
-               </button>
+
                <button
                   onClick={() => navigate('/statistics')}
-                  className={`font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'statistics' || currentView === 'templates' || currentView === 'walletDetail' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+                  className={`flex gap-1 font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'statistics' || currentView === 'templates' || currentView === 'walletDetail' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
                   aria-label="View LabSTX usage statistics"
                >
-                  Statistics
+                  <ChartCandlestick />    Analytics
                </button>
+
+               |
+               <div className="relative">
+                  <button
+                     onClick={() => setShowToolsPopover(!showToolsPopover)}
+                     className={`flex gap-1 font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${showToolsPopover ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+                     aria-label="View Tools"
+                  >
+                     <CodeXml />     TOOLS
+                  </button>
+
+                  {showToolsPopover && (
+                     <div className={`absolute top-full left-0 mt-4 w-72 border-2 shadow-neo z-50 animate-fade-in ${isDark ? 'bg-[#111111] border-gray-700' : 'bg-white border-black'}`}>
+                        <div className="p-4 border-b-2 border-dashed border-gray-500/30 hover:bg-[#2d5bff]/10 transition-colors cursor-pointer" onClick={() => { window.open('https://jetic.org', '_blank'); setShowToolsPopover(false); }}>
+                           <h4 className="font-display font-black text-lg uppercase mb-1">JETIC <span className='ml-auto text-blue-600 text-xs '>coming soon</span></h4>
+                           <p className="font-mono text-xs opacity-70">AI native framework for Bitcoin native apps</p>
+                        </div>
+                        <div className="p-4 hover:bg-[#2d5bff]/10 transition-colors cursor-pointer" onClick={() => { navigate('/'); setShowToolsPopover(false); }}>
+                           <h4 className="font-display font-black text-lg uppercase mb-1">IDE</h4>
+                           <p className="font-mono text-xs opacity-70">Smart contract IDE for Clarity smart contracts</p>
+                        </div>
+                     </div>
+                  )}
+               </div>
+
+               |
+               <button
+                  onClick={() => { navigate('/donate'); setShowToolsPopover(false); }}
+                  className={`flex gap-1 font-bold font-display uppercase tracking-widest text-sm transition-all hover:text-[#2d5bff] relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-[#2d5bff] after:transition-all ${currentView === 'donate' ? 'text-[#2d5bff] after:w-full' : 'after:w-0'}`}
+                  aria-label="Donate"
+               >
+                  <HandHelping />     DONATE
+               </button>
+            </nav>
+
+            <div className="flex items-center gap-6">
+
                <a href="https://github.com/LabSTX" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`} aria-label="Visit LabSTX GitHub repository"><Github aria-hidden="true" /></a>
                <a href="https://x.com/labstxorg" target="_blank" rel="noopener noreferrer" className={`font-bold font-display hover:text-[#2d5bff] hidden md:block tracking-widest text-sm transition-colors ${isDark ? 'text-gray-300' : 'text-gray-900'}`} aria-label="Follow LabSTX on Twitter/X"><Twitter aria-hidden="true" /></a>
 
                <button onClick={toggleTheme} className="p-2 rounded-lg transition-colors" aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}>{isDark ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}</button>
+
                <NeoButton variant="primary" theme={theme} onClick={() => window.open('https://ide.labstx.online/', '_blank', 'noopener,noreferrer')} aria-label="Launch LabSTX IDE">Get Started</NeoButton>
-            </nav>
+            </div>
          </header>
 
          <main className="flex-1">
             {currentView === 'roadmap' ? (
                <RoadmapView />
+            ) : currentView === 'donate' ? (
+               <DonateView />
             ) : currentView === 'statistics' ? (
                <StatisticsView
                   theme={theme}

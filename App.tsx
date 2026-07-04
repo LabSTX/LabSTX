@@ -37,6 +37,10 @@ export default function App() {
       '/statistics/templates': {
         title: 'Templates - Free Clarity Smart Contract Templates | LabSTX',
         description: 'Browse our collection of free Clarity smart contract templates. Start building with pre-configured projects for tokens, NFTs, and more.'
+      },
+      '/donate': {
+        title: 'Support LabSTX - Donate',
+        description: 'Support the development of LabSTX IDE. Donate STX directly to help us build the most powerful Clarity environment on the web.'
       }
     };
 
@@ -57,6 +61,10 @@ export default function App() {
     <Routes>
       <Route 
         path="/" 
+        element={<LandingPage theme={theme} toggleTheme={toggleTheme} onLaunch={() => navigate('/underdev')} />} 
+      />
+      <Route 
+        path="/donate" 
         element={<LandingPage theme={theme} toggleTheme={toggleTheme} onLaunch={() => navigate('/underdev')} />} 
       />
       <Route 
