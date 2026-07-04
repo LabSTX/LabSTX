@@ -698,11 +698,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
 
                   {showToolsPopover && (
                      <div className={`absolute top-full left-0 mt-4 w-72 border-2 shadow-neo z-50 animate-fade-in ${isDark ? 'bg-[#111111] border-gray-700' : 'bg-white border-black'}`}>
-                        <div className="p-4 border-b-2 border-dashed border-gray-500/30 hover:bg-[#2d5bff]/10 transition-colors cursor-pointer" onClick={() => { window.open('https://jetic.org', '_blank'); setShowToolsPopover(false); }}>
+                        <div className="p-4 border-b-2 border-dashed border-gray-500/30 hover:bg-[#2d5bff]/10 transition-colors cursor-pointer" onClick={() => { setShowToolsPopover(false); }}>
                            <h4 className="font-display font-black text-lg uppercase mb-1">JETIC <span className='ml-auto text-blue-600 text-xs '>coming soon</span></h4>
                            <p className="font-mono text-xs opacity-70">AI native framework for Bitcoin native apps</p>
                         </div>
-                        <div className="p-4 hover:bg-[#2d5bff]/10 transition-colors cursor-pointer" onClick={() => { navigate('/'); setShowToolsPopover(false); }}>
+                        <div className="p-4 hover:bg-[#2d5bff]/10 transition-colors cursor-pointer" onClick={() => { window.open('https://ide.labstx.online', '_blank'); setShowToolsPopover(false); }}>
                            <h4 className="font-display font-black text-lg uppercase mb-1">IDE</h4>
                            <p className="font-mono text-xs opacity-70">Smart contract IDE for Clarity smart contracts</p>
                         </div>
