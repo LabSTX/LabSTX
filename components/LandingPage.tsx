@@ -658,7 +658,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
         `}</style>
 
 
-         <p className=" flex gap-2 items-center justify-center bg-blue-800 py-1 text-white font-mono"> LabSTX Version 1.2.2 is currently in Preview <a href="https://github.com/LabSTX/LabSTX_IDE/releases/tag/v1.2.1" target="_blank" rel="noopener noreferrer" className="text-white underline font-bold">Read more</a></p>
+         <p className=" flex gap-2 items-center justify-center bg-blue-800 py-1 text-white font-mono"> LabSTX Version 1.2.2 is currently in Preview <a href="https://github.com/LabSTX/LabSTX_IDE/releases/tag/v1.2.2 Preview" target="_blank" rel="noopener noreferrer" className="text-white underline font-bold">Read more</a></p>
 
          <header className={`h-20 w-full shadow bg-backdrop-blur flex items-center justify-between px-6 sticky top-0 z-50 transition-colors duration-300 ${isDark ? 'bg-black' : 'bg-white'
             }`}>
@@ -770,18 +770,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                                     Start building <ArrowRight size={18} aria-hidden="true" />
                                  </button>
                               </div>
-                              <div className="flex flex-col items-center gap-2">
-                                 <p className={`text-sm font-mono opacity-80 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                    Public beta is live. Join Early Access for priority updates and influence features.
-                                 </p>
+                              <div className="flex flex-col items-center gap-2 mt-2">
                                  <a
-                                    href={EARLY_ACCESS_URL}
+                                    href="https://docs.stacks.co/clarinet/overview#additional-resources"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`text-sm font-mono font-bold uppercase tracking-tighter border-b-2 border-[#2d5bff] pb-1 hover:font-bold transition-all`}
+                                    className={`flex items-center gap-2 text-sm font-mono font-bold uppercase tracking-tighter border-2 border-[#2d5bff] px-4 py-2 hover:bg-[#2d5bff]/10 transition-all rounded-sm`}
+                                    title="View LabSTX in the official Stacks documentation"
+                                 >
+                                    <Verified size={16} className="text-[#2d5bff]" />
+                                    Trusted & Referenced in Official Stacks Docs
+                                 </a>
+                              </div>
+                              <div className="flex flex-row items-center gap-2">
+                                 <p className={`truncate text-sm font-mono opacity-80 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                    Note: v1.2.2 is in Preview and not the production release, report any error on Github
+                                 </p>
+                                 <a
+                                    href={'https://github.com/LabSTX/LabSTX_IDE/issues'}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={` text-sm font-mono font-bold uppercase tracking-tighter border-b-2 border-[#2d5bff] pb-1 hover:font-bold transition-all`}
                                     aria-label="Join LabSTX Early Access Program"
                                  >
-                                    Join Early Access →
+                                    {`>>>>`}
                                  </a>
                               </div>
                            </div>
@@ -789,15 +801,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                      </div>
                   </section>
 
-                  {/* --- TRUSTED BY MARQUEE --- */}
+
                   <section className={`border-b-2 border-[#2d5bff] py-6 overflow-hidden ${isDark ? 'bg-[#1a1a1a]' : 'bg-[#0a0a0a]'}`}>
                      <div className="whitespace-nowrap flex gap-12 animate-[marquee_25s_linear_infinite] hover:pause">
                         {[...Array(2)].map((_, i) => (
                            <React.Fragment key={i}>
-                              <a href="https://www.stacks.co/" target="_blank" rel="noopener noreferrer" className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500 hover:text-[#2d5bff] transition-colors"><Globe size={20} /> Stacks_Network</a>
+                              <a href="https://docs.stacks.co/clarinet/overview#additional-resources" target="_blank" rel="noopener" className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500 hover:text-[#2d5bff] transition-colors"><Globe size={20} /> Stacks_Network</a>
                               <span className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500"><Shield size={20} /> Enterprise_Grade</span>
                               <a href="https://www.stacks.co/bitcoin-layers" target="_blank" rel="noopener noreferrer" className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500 hover:text-[#2d5bff] transition-colors"><Zap size={20} /> Bitcoin_Layers</a>
-                              <a href="https://docs.stacks.co/docs/clarity" target="_blank" rel="noopener noreferrer" className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500 hover:text-[#2d5bff] transition-colors"><Code2 size={20} /> Clarity_SDK</a>
+                              <a href="https://docs.stacks.co/docs/clarity" target="_blank" rel="noopener noreferrer" className="font-display font-bold text-2xl uppercase mx-6 flex items-center gap-2 text-gray-500 hover:text-[#2d5bff] transition-colors"><Code2 size={20} /> Clarity_SDK_Browser</a>
                            </React.Fragment>
                         ))}
                      </div>
