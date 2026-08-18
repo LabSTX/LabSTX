@@ -658,7 +658,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
         `}</style>
 
 
-         <p className=" flex gap-2 items-center justify-center bg-blue-800 py-1 text-white font-mono"> LabSTX Version 1.2.2 is currently in Preview <a href="https://github.com/LabSTX/LabSTX_IDE/releases/tag/v1.2.2 Preview" target="_blank" rel="noopener noreferrer" className="text-white underline font-bold">Read more</a></p>
+         <p className=" flex gap-2 items-center justify-center bg-blue-800 py-1 text-white font-mono"> LabSTX Version 1.2.2 is Live <a href="https://github.com/LabSTX/LabSTX_IDE/releases/tag/v1.2.2 Preview" target="_blank" rel="noopener noreferrer" className="text-white underline font-bold">Read more</a></p>
 
          <header className={`h-20 w-full shadow bg-backdrop-blur flex items-center justify-between px-6 sticky top-0 z-50 transition-colors duration-300 ${isDark ? 'bg-black' : 'bg-white'
             }`}>
@@ -783,8 +783,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunch, theme, toggl
                                  </a>
                               </div>
                               <div className="flex flex-row items-center gap-2">
-                                 <p className={`truncate text-sm font-mono opacity-80 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                    Note: v1.2.2 is in Preview and not the production release, report any error on Github
+                                 <p className={`hidden truncate text-sm font-mono opacity-80 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                    Note: v1.2.2 is the production release, report any error on Github
                                  </p>
                                  <a
                                     href={'https://github.com/LabSTX/LabSTX_IDE/issues'}
